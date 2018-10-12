@@ -13,5 +13,5 @@ Definitieve versies worden in het technisch register van Geonovum op http://regi
 ## Versie 1.x van Nederlandse profielen
 De validatieregels van de Nederlandse profielen voor dataset (versie 1.3.x) en services (versie 1.2.x) zijn momenteel in gebruik in de Geonovum validator en het Nationaal GeoRegister.
 
-## Versie 2.0  van Nederlandse profielen
-** Nota bene: de validatieregels zijn nog in ontwikkeling. Gelieve deze alleen voor test of ontwikkeldoeleinden te gebruiken**
+## Versie 2.0 van Nederlandse profielen
+**Nota bene: de validatieregels zijn nog in ontwikkeling. Gelieve deze alleen voor test of ontwikkeldoeleinden te gebruiken.**
