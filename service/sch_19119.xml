@@ -26,19 +26,19 @@
 		<sch:let name="conformity_Spec_Title6" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[6]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
 		<sch:let name="conformity_Spec_Title7" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[7]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
 		<sch:let name="conformity_Spec_Title8" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[8]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
-		
+
 		<sch:let name="conformity_Spec_Title_All" value="concat(string($conformity_Spec_Title1),string($conformity_Spec_Title2),string($conformity_Spec_Title3),string($conformity_Spec_Title4),string($conformity_Spec_Title5),string($conformity_Spec_Title6),string($conformity_Spec_Title7),string($conformity_Spec_Title8))"/>
 		<sch:let name="conformity_Spec_Title_Interoperability_Exsists" value="contains($conformity_Spec_Title_All,'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens')"/>
 		<sch:let name="conformity_Spec_Title_Network_Exsists" value="contains($conformity_Spec_Title_All,'VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten')"/>
 	    <sch:let name="conformity_Spec_Title_SDS_Exsists" value="(contains($conformity_Spec_Title_All,'invocable') or contains($conformity_Spec_Title_All,'interoperable') or contains($conformity_Spec_Title_All,'harmonised'))"/>
-		
+
 		<sch:let name="conformity_Spec_Title_SDS_Invoc" value="contains($conformity_Spec_Title_All,'invocable')"/>
 		<sch:let name="conformity_Spec_Title_SDS_Interop" value="contains($conformity_Spec_Title_All,'interoperable')"/>
 		<sch:let name="conformity_Spec_Title_SDS_Harmo" value="contains($conformity_Spec_Title_All,'harmonised')"/>
 
 		<sch:rule id="Algemene metadata regels" context="/gmd:MD_Metadata">
 
-		<!-- schemalocatie controleren, overeenkomstig inspire en nl profiel 
+		<!-- schemalocatie controleren, overeenkomstig inspire en nl profiel
 
 
 			<sch:assert id="Schema locatie" test="contains(normalize-space(@xsi:schemaLocation), 'http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd')">Het ISO 19139 XML document mist een verplichte schema locatie. De schema locatie http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd moet aanwezig zijn.
@@ -47,12 +47,12 @@
 			</sch:report>
 -->
 			<sch:assert id="Schema locatie service metadata" test="contains(normalize-space(@xsi:schemaLocation), 'http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd')">Het ISO 19139 XML document mist een verplichte schema locatie. De schema locatie met namespace http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd moet aanwezig zijn. Zie https://www.pdok.nl/nl/ngr/faq#schemalocatie
-			</sch:assert>
+		    	</sch:assert>
 			<sch:report id="Schema locatie service metadata info" test="contains(normalize-space(@xsi:schemaLocation), 'http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd')">Het ISO 19139 XML document bevat de schema locatie met namespace http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
 			</sch:report>
 		<!--  fileIdentifier -->
 			<sch:let name="fileIdentifier" value="normalize-space(gmd:fileIdentifier/gco:CharacterString)"/>
-       		 <!-- Metadata taal -->
+       	<!-- Metadata taal -->
  			<sch:let name="mdLanguage" value="(gmd:language/*/@codeListValue = 'dut' or gmd:language/*/@codeListValue = 'eng')"/>
             <sch:let name="mdLanguage_value" value="string(gmd:language/*/@codeListValue)"/>
 		<!-- Metadata hiërarchieniveau -->
@@ -90,7 +90,7 @@
 			<sch:assert id="Resource type (ISO nr. 6)" test="$hierarchyLevel">Resource type (ISO nr. 6) ontbreekt of heeft een verkeerde waarde</sch:assert>
 			<sch:report id="Resource type (ISO nr. 6) info" test="$hierarchyLevel">Resource type (ISO nr. 6) voldoet
 			</sch:report>
-			
+
 			<sch:assert id="Naam organisatie metadata (ISO nr. 376)" test="$mdResponsibleParty_Organisation">Naam organisatie metadata (ISO nr. 376) ontbreekt</sch:assert>
 			<sch:report id="Naam organisatie metadata (ISO nr. 376) info" test="$mdResponsibleParty_Organisation">Naam organisatie metadata (ISO nr. 376): <sch:value-of select="$mdResponsibleParty_Organisation"/>
 			</sch:report>
@@ -100,7 +100,7 @@
 
 		<!-- INSPIRE in combi met specificatie INSPIRE -->
 			<sch:assert id="INSPIRE Rol organisatie metadata (ISO nr. 379)" test="not($conformity_Spec_Title_Interoperability_Exsists) or ($conformity_Spec_Title_Interoperability_Exsists and $mdResponsibleParty_Role_INSPIRE)">Rol organisatie metadata (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, deze dient voor INSPIRE contactpunt te zijn</sch:assert>
-			
+
 		<!-- eind INSPIRE in combi met specificatie INSPIRE -->
 			<sch:assert id="E-mail organisatie metadata (ISO nr. 386)" test="$mdResponsibleParty_Mail">E-mail organisatie metadata (ISO nr. 386) ontbreekt</sch:assert>
 			<sch:report id="E-mail organisatie metadata (ISO nr. 386) info" test="$mdResponsibleParty_Mail">E-mail organisatie metadata (ISO nr. 386): <sch:value-of select="$mdResponsibleParty_Mail"/>
@@ -216,15 +216,17 @@
 			<sch:assert id="Trefwoorden (ISO nr. 53)" test="$keyword">Trefwoorden (ISO nr. 53) ontbreekt of heeft de verkeerde waarde</sch:assert>
 			<sch:report id="Trefwoorden (ISO nr. 53) info" test="$keyword">Tenminste 1 Trefwoord (ISO nr. 53)) is gevonden
 		    	</sch:report>
-		<!-- INSPIRE in combi met SDS interop INSPIRE -->	
-			<sch:assert id="Rol organisatie SDS(ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE interoperable SDS in ieder geval de rol beheerder opnemen</sch:assert>		
-			<sch:assert id="Rol organisatie SDS harmo(ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE harmonised SDS in ieder geval de rol beheerder opnemen</sch:assert>	
+		<!-- INSPIRE in combi met SDS interop INSPIRE -->
+			<sch:assert id="Rol organisatie SDS(ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE interoperable SDS in ieder geval de rol beheerder opnemen</sch:assert>
+			<sch:assert id="Rol organisatie SDS harmo(ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE harmonised SDS in ieder geval de rol beheerder opnemen</sch:assert>
 			<sch:report id="Rol organisatie SDS(ISO nr. 379) info" test="$conformity_Spec_Title_SDS_Interop">Rol verantwoordelijke organisatie (ISO nr. 379): <sch:value-of select="$conformity_Spec_Title_SDS_Interop"/>
 			</sch:report>
 		<!-- eind INSPIRE in combi met SDS INSPIRE -->
 		<!-- alleen INSPIRE -->
+		<!--
 			<sch:assert id="INSPIRE Trefwoorden (ISO nr. 53)" test="$keyword_INSPIRE">Trefwoord (ISO nr. 53) voor INSPIRE servicetype ontbreekt of heeft de verkeerde waarde</sch:assert>
-		 <!-- eind alleen INSPIRE -->
+		-->
+		<!-- eind alleen INSPIRE -->
 			<sch:assert id="Gebruiksbeperkingen (ISO nr. 68)" test="$useLimitation">Gebruiksbeperkingen (ISO nr. 68) ontbreken</sch:assert>
 			<sch:report id="Gebruiksbeperkingen (ISO nr. 68) info" test="$useLimitation">Gebruiksbeperkingen (ISO nr. 68): <sch:value-of select="$useLimitation"/>
 		   	 </sch:report>
@@ -277,7 +279,7 @@
 
 		<!-- assertions and reports -->
 		<!-- dcp -->
-			<sch:assert id="DCP" test="$dcp_value = 'WebServices'"> DCP ontbreekt  of heeft de verkeerde waarde </sch:assert>
+			<sch:assert id="DCP test" test="$dcp_value = 'WebServices'">DCP ontbreekt  of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="DCP info" test="$dcp_value">DCP: <sch:value-of select="$dcp_value"/></sch:report>
 		<!-- operationName -->
 			<sch:assert id="Operatie naam" test="$operationName">Operatie naam ontbreekt of heeft de verkeerde waarde.</sch:assert>
@@ -304,22 +306,23 @@
 		<!-- service type -->
 			<sch:assert id="Service type" test="$serviceType">Service type ontbreekt of heeft de verkeerde waarde, gebruik view of download voor services die aan betreffende specificaties van INSPIRE voldoen, in andere gevallen de waarde other.</sch:assert>
 			<sch:report id="Service type info" test="$serviceType">Service type: <sch:value-of select="$serviceType_value"/></sch:report>
-			
-	<!-- INSPIRE service type -->	
+
+	<!-- INSPIRE service type -->
 			<sch:assert id="Service type en network specificatie" test="not($conformity_Spec_Title_Network_Exsists) or ($conformity_Spec_Title_Network_Exsists and $serviceType_Networkservice)">Service type ontbreekt of heeft de verkeerde waarde, gebruik view of download voor services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
 			<sch:assert id="Service type en SDS specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $serviceType_Other)">Service type ontbreekt of heeft de verkeerde waarde, gebruik de waarde other voor SDS services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
-	
-	<!-- alleen INSPIRE specificatie in combi met servicetype alleen bij INSPIRE ckecken-->	
+
+	<!-- alleen INSPIRE specificatie in combi met servicetype alleen bij INSPIRE ckecken-->
+	<!--
 			<sch:assert id="Network specificatie en Service type" test="not($serviceType_Networkservice) or ($serviceType_Networkservice and $conformity_Spec_Title_Network_Exsists)">Specificatie ontbreekt of heeft de verkeerde waarde, bij servicetype view of download bij INSPIRE services in specificatie verwijzen naar VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten.</sch:assert>
-			<sch:assert id="SDS specificatie en Service type" test="not($serviceType_Other) or ($serviceType_Other and $conformity_Spec_Title_SDS_Exsists)">Specificatie ontbreekt of heeft de verkeerde waarde, bij servicetype other voor INSPIRE services in specificatie verwijzen naar invocable, interoperable of harmonised als de service een INSPIRE dataset gebruikt.</sch:assert>	
+			<sch:assert id="SDS specificatie en Service type" test="not($serviceType_Other) or ($serviceType_Other and $conformity_Spec_Title_SDS_Exsists)">Specificatie ontbreekt of heeft de verkeerde waarde, bij servicetype other voor INSPIRE services in specificatie verwijzen naar invocable, interoperable of harmonised als de service een INSPIRE dataset gebruikt.</sch:assert>
 			<sch:report id="SDS specificatie en Service type info" test="$conformity_Spec_Title_All">conformity spec title all: <sch:value-of select="$conformity_Spec_Title_All"/></sch:report>
-	
+	-->
 	<!-- eind alleen INSPIRE specificatie in combi met servicetype -->
-		<!-- INSPIRE SDS -->	
+		<!-- INSPIRE SDS -->
 			<sch:assert id="Beschrijving" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $description = 'accessPoint')">beschrijving ontbreekt of heeft de verkeerde waarde, gebruik voor INSPIRE SDS de waarde accessPoint</sch:assert>
 			<sch:report id="Beschrijving info" test="$description">Service type: <sch:value-of select="$description"/></sch:report>
 			<sch:assert id="Resource locator getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">Resource locator naar de service moet een getCapabilities request bevatten</sch:assert>
-			
+
 	<!-- eind  INSPIRE	SDS-->
 			<!-- couplingType -->
 			<sch:assert id="Coupling type" test="$couplingType">Coupling type ontbreekt of heeft de verkeerde waarde</sch:assert>
@@ -386,13 +389,13 @@
 			<sch:let name="conformity_Pass" value="normalize-space(gmd:pass/gco:Boolean)"/>
 
 		<!-- Specificatie alleen voor INSPIRE (is dit nog nodig, inspire spec titel in combi met als titel ingevuld vangt dit toch af?)-->
-
+	<!--
 			<sch:assert id="INSPIRE Specificatie (ISO nr. 360)" test="$conformity_SpecTitle">Specificatie (ISO nr. 360 ) ontbreekt.</sch:assert>
 			<sch:assert id="INSPIRE Verklaring (ISO nr. 131)" test="$conformity_Explanation">Verklaring (ISO nr. 131) ontbreekt.</sch:assert>
 			<sch:assert id="INSPIRE Specificatie datum (ISO nr. 394)" test="$conformity_Date">Specificatie datum (ISO nr. 394) ontbreekt.</sch:assert>
 			<sch:assert id="INSPIRE Specificatiedatum type (ISO nr. 395)" test="$conformity_Datetype">Specificatiedatum type (ISO nr. 395) ontbreekt.</sch:assert>
 			<sch:assert id="INSPIRE Conformiteitindicatie met de specificatie  (ISO nr. 132)" test="$conformity_Pass">Conformiteitindicatie met de specificatie  (ISO nr. 132) ontbreekt.</sch:assert>
-
+	-->
 		<!-- eind Specificatie alleen voor INSPIRE-->
 
 
@@ -423,35 +426,40 @@
 
 		<!-- INSPIRE specification titel -->
 
-		<sch:rule id="alle INSPIRE specificaties" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation">
+		<!-- <sch:rule id="alle INSPIRE specificaties" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation">
 
 		    <sch:let name="all_conformity_Spec_Titles" value="ancestor::gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title"/>
 			<sch:let name="all_conformity_Spec_Titles_join" value="normalize-space(string-join(($all_conformity_Spec_Titles), ','))"/>
 			<sch:let name="INSPIRE_SDS_Spec_Title_exists" value="contains($all_conformity_Spec_Titles_join, 'invocable') or contains($all_conformity_Spec_Titles_join, 'interoperable') or contains($all_conformity_Spec_Titles_join, 'harmonised')"/>
 			<sch:let name="INSPIRE_network_Spec_Title_exists" value="$all_conformity_Spec_Titles[normalize-space(*/text()) =  'VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten']"/>
 			<sch:let name="INSPIRE_interop_Spec_Title_exists" value="$all_conformity_Spec_Titles[normalize-space(*/text()) =  'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens']"/>
-			
+
 			<sch:let name="INSPIRE_network_Spec_Title" value="'VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten'"/>
 			<sch:let name="INSPIRE_interop_Spec_Title" value="'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens'"/>
 			<sch:let name="INSPIRE_SDS_invoc" value="'invocable'"/>
 			<sch:let name="INSPIRE_SDS_interop" value="'interoperable'"/>
-			<sch:let name="INSPIRE_SDS_harmo" value="'harmonised'"/>
-			
+			<sch:let name="INSPIRE_SDS_harmo" value="'harmonised'"/> -->
+
 		<!-- alleen INSPIRE interoperable titel moet aanwezig zijn-->
+		<!--
 			<sch:assert id="INSPIRE Specificatie (ISO nr. 360) titel interoperabiliteit" test="$INSPIRE_interop_Spec_Title_exists">Specificatie (ISO nr. 360) ontbreekt of heeft de verkeerde waarde,verwijzen naar de VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens</sch:assert>
+		-->
 		<!-- INSPIRE SDS titel of titel netwerk  moet aanwezig zijn, niet beide-->
-			<sch:assert id="INSPIRE Specificatie (ISO nr. 360) titel SDS of netwerkdienst" test="$INSPIRE_SDS_Spec_Title_exists or $INSPIRE_network_Spec_Title_exists">Specificatie (ISO nr. 360) heeft geen verwijzingen naar of de verordening voor netwerkdiensten of een verwijzing naar SDS invocable, interoperable of harmonised. Vul één van deze in.</sch:assert>
+		<!--
+				<sch:assert id="INSPIRE Specificatie (ISO nr. 360) titel SDS of netwerkdienst" test="$INSPIRE_SDS_Spec_Title_exists or $INSPIRE_network_Spec_Title_exists">Specificatie (ISO nr. 360) heeft geen verwijzingen naar of de verordening voor netwerkdiensten of een verwijzing naar SDS invocable, interoperable of harmonised. Vul één van deze in.</sch:assert>
 			<sch:assert id="INSPIRE Specificatie (ISO nr. 360) titel SDS en netwerkdienst" test="not($INSPIRE_SDS_Spec_Title_exists and $INSPIRE_network_Spec_Title_exists)">Specificatie (ISO nr. 360) verwijzingen naar of de verordening voor netwerkdiensten of een verwijzing naar SDS invocable, interoperable of harmonised. Niet beide.</sch:assert>
+		-->
 		<!-- eind alleen INSPIRE interoperable titel moet aanwezig zijn-->
-		
+
 		<!-- daarnaast moet voor SDS een TG  titel  moet aanwezig zijn, dus minimaal een derde naast  inspire interop exists en network of SDS exists-->
-			
-		<!-- voor INSPIRE SDS een TG (derde) titel aanwezig zijn -->
+
+		<!-- alleen INSPIRE  SDS een TG (derde) titel aanwezig zijn -->
+		<!--
 			<sch:assert id="INSPIRE Specificatie (ISO nr. 360) titel technische specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and count(($all_conformity_Spec_Titles_join))lt 3)">Specificatie (ISO nr. 360) verwijzing naar een technische specificatie van de service ontbreekt: <sch:value-of select="$all_conformity_Spec_Titles_join"/></sch:assert>
 			<sch:report id="test all spec titels info" test="$all_conformity_Spec_Titles_join">Aanwezige Specificatie titels: <sch:value-of select="$all_conformity_Spec_Titles_join"/>
-			</sch:report>	
-	
-		</sch:rule>
+			</sch:report>
+		-->
+		<!-- </sch:rule> -->
 
 		<!-- eind INSPIRE specification titel -->
 
@@ -462,9 +470,9 @@
 			<sch:assert id="Coupled resource xlink:href attribuut" test="string(normalize-space(@xlink:href))">Coupled resource heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 
 		</sch:rule>
-		<!-- INSPIRE interop SDS servicekwaliteit  -->		
+		<!-- INSPIRE interop SDS servicekwaliteit  -->
 		<sch:rule id="INSPIRE SDS alle service kwaliteit" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_ConceptualConsistency">
-			
+
 			<sch:let name="all_quality_measures" value="ancestor::gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_ConceptualConsistency/gmd:nameOfMeasure"/>
 			<sch:let name="all_quality_measures_join" value="normalize-space(string-join(($all_quality_measures), ','))"/>
 			<sch:let name="quality_name_Of_Measure" value="normalize-space(gmd:nameOfMeasure/gco:CharacterString)"/>
@@ -473,41 +481,41 @@
 			<sch:let name="quality_result" value="normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
 			<sch:let name="quality_value_unit" value="normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
 			<sch:let name="quality_value_unit_Reason" value="contains(normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:valueUnit/@gco:nilReason),'inapplicable')"/>
-			
-			
+
+
 			<sch:assert id="INSPIRE SDS service kwaliteit (ISO nr. 100 ) availability" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($all_quality_measures_join, 'availability'))">De beschikbaarheid van de service is niet beschreven</sch:assert>
 			<sch:assert id="INSPIRE SDS service kwaliteit (ISO nr. 100) performance" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($all_quality_measures_join, 'performance'))">De performance van de service is niet beschreven</sch:assert>
 			<sch:assert id="INSPIRE SDS service kwaliteit (ISO nr. 100 ) capacity" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($all_quality_measures_join, 'capacity'))">De capaciteit van de service is niet beschreven</sch:assert>
 			<sch:assert id="INSPIRE SDS harmo service kwaliteit (ISO nr. 100 ) availability" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($all_quality_measures_join, 'availability'))">De beschikbaarheid van de service is niet beschreven</sch:assert>
 			<sch:assert id="INSPIRE SDS harmo service kwaliteit (ISO nr. 100) performance" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($all_quality_measures_join, 'performance'))">De performance van de service is niet beschreven</sch:assert>
 			<sch:assert id="INSPIRE SDS harmo service kwaliteit (ISO nr. 100 ) capacity" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($all_quality_measures_join, 'capacity'))">De capaciteit van de service is niet beschreven</sch:assert>
-			
+
 			<sch:report id="INSPIRE SDS service kwaliteit (ISO nr. 100 ) availability info" test="$all_quality_measures_join">Aanwezige kwaliteits meetingen: <sch:value-of select="$all_quality_measures_join"/>
 			</sch:report>
-			
-	
+
+
 			<sch:assert id="INSPIRE SDS service kwaliteit identificatie (ISO nr. 101 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_measure_Identification)">Identificatie van service kwaliteitsmeeting (ISO nr. 101) is verplicht als een meeting is opgegeven.</sch:assert>
 			<sch:assert id="INSPIRE SDS service kwaliteit beschrijving (ISO nr. 102 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_measure_Description)">Beschrijving van service kwaliteit (ISO nr. 102) is verplicht als een meeting is opgegeven.</sch:assert>
 			<sch:assert id="INSPIRE SDS service kwaliteit resultaat (ISO nr. 107 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_result)">Resultaat van service kwaliteit (ISO nr. 107) is verplicht als een meeting is opgegeven.</sch:assert>
 			<sch:assert id="INSPIRE SDS service kwaliteit eenheid waarde (ISO nr. 107 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and ($quality_value_unit or $quality_value_unit_Reason))">Voor resultaat van service kwaliteit (ISO nr. 107) is ook een eenheid verplicht als een meeting is opgegeven.</sch:assert>
-			
+
 		</sch:rule>
-		
-		<!-- eind INSPIRE interop SDS servicekwaliteit  -->	
-		
+
+		<!-- eind INSPIRE interop SDS servicekwaliteit  -->
+
 		<!-- INSPIRE interop SDS Referentiesysteem  -->
-	
+
 		<sch:rule id="Referentiesysteem" context="//gmd:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier">
-			
+
 			<sch:let name="referenceSystemInfo_Code" value="normalize-space(gmd:code/gco:CharacterString)"/>
 			<sch:assert id="Code referentiesysteem (ISO nr. 207) SDS" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and $referenceSystemInfo_Code)">Code referentiesysteem (ISO nr. 207) ontbreekt, dit moet voor INSPIRE interoperable SDS een URI, bv http://www.opengis.net/def/crs/EPSG/0/28992 zijn </sch:assert>
 			<sch:assert id="Code referentiesysteem (ISO nr. 207) SDS harmo" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and $referenceSystemInfo_Code)">Code referentiesysteem (ISO nr. 207) ontbreekt, dit moet voor INSPIRE harmonised SDS een URI, bv http://www.opengis.net/def/crs/EPSG/0/28992 zijn </sch:assert>
 			<sch:report id="Code referentiesysteem (ISO nr. 207) info" test="$referenceSystemInfo_Code">Code referentiesysteem (ISO nr. 207): <sch:value-of select="$referenceSystemInfo_Code"/>
 			</sch:report>
-		
+
 		</sch:rule>
-		
-		<!-- eind INSPIRE SDS Referentiesysteem  -->	
+
+		<!-- eind INSPIRE SDS Referentiesysteem  -->
 
         		<!-- Controlled originating vocabulary -->
 
