@@ -125,8 +125,8 @@
 			<sch:assert id="Metadatastandaard naam (ISO nr. 10)" test="contains($metadataStandardName, 'ISO 19119')">Metadatastandaard naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadata-standaard-naam) is niet correct ingevuld, Metadatastandaard naam dient de waarde 'ISO 19119' te hebben</sch:assert>
 			<sch:report id="Metadatastandaard naam (ISO nr. 10) info" test="$metadataStandardName">Metadatastandaard naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadata-standaard-naam): <sch:value-of select="$metadataStandardName"/>
 			</sch:report>
-			<sch:assert id="Versie metadatastandaard  (ISO nr. 11)" test="contains($metadataStandardVersion, 'Nederlands metadata profiel op ISO 19119 voor services 2.0')">Versie metadatastandaard (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatastandaard-versie) is niet correct ingevuld, Metadatastandaard versie dient de waarde 'Nederlands metadata profiel op ISO 19119 voor services 2.0' te bevatten</sch:assert>
-			<sch:report id="Versie metadatastandaard  (ISO nr. 11) info" test="contains($metadataStandardVersion, 'Nederlands metadata profiel op ISO 19119 voor services 2.0')">Versie metadatastandaard (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatastandaard-versie): <sch:value-of select="$metadataStandardVersion"/>
+			<sch:assert id="Versie metadatastandaard  (ISO nr. 11)" test="contains($metadataStandardVersion, 'NEDERLANDS METADATA PROFIEL OP ISO 19119 VOOR SERVICES 2.0')">Versie metadatastandaard (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatastandaard-versie) is niet correct ingevuld, Metadatastandaard versie dient de waarde 'Nederlands metadata profiel op ISO 19119 voor services 2.0' te bevatten. Opgegeven versie: <sch:value-of select="$metadataStandardVersion"/></sch:assert>
+			<sch:report id="Versie metadatastandaard  (ISO nr. 11) info" test="contains($metadataStandardVersion, 'NEDERLANDS METADATA PROFIEL OP ISO 19119 VOOR SERVICES 2.0')">Versie metadatastandaard (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatastandaard-versie): <sch:value-of select="$metadataStandardVersion"/>
 			</sch:report>
 
 			<sch:assert id="Metadata karakterset (ISO nr. 4)" test="not($metadataCharacterset) or $metadataCharacterset_value">Metadata karakterset (ISO nr. 4) ontbreekt of heeft een verkeerde waarde</sch:assert>
@@ -303,8 +303,8 @@
 			<!-- Thijs Brentjens: nieuwe controle op codelijst https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codelist-datalicenties -->
 			<sch:assert id="Overige beperkingen en codelijst Datalicenties" test="not($accessConstraints_value = 'otherRestrictions') or ($accessConstraints_value = 'otherRestrictions' and $otherConstraintIsCodelistdatalicense)">Als het element juridische toegangsrestricties de waarde otherRestrictions bevat dient een link uit de codelijst https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codelist-datalicenties naar de licentie en de bijbehorende beschrijving opgenomen te worden. Opgenomen informatie: <sch:value-of select="$otherConstraint1"/> met licentie:<sch:value-of select="$otherConstraintURI1/@xlink:href"/><sch:value-of select="$otherConstraint2"/> en <sch:value-of select="$otherConstraint2"/> <sch:value-of select="$otherConstraintURI2/@xlink:href"/><sch:value-of select="$otherConstraint1"/></sch:assert>
 
-
-			<sch:assert id="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert>
+			<!-- optional / conditional: test verwijderen -->
+			<!-- <sch:assert id="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert> -->
 
 		<!-- service -->
 		<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url -->
@@ -326,11 +326,12 @@
 
 		<!-- Protocol -->
 		<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#protocol -->
-			<sch:let name="transferOptions_Protocol" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'OGC:CSW' or text() = 'OGC:WMS' or text() = 'OGC:WMTS' or text() = 'OGC:WFS' or text() = 'OGC:WCS' or text() = 'OGC:WCTS' or text() = 'OGC:WPS' or text() = 'UKST' or text() = 'INSPIRE Atom' or text() = 'OGC:WFS-G' or text() = 'OGC:SOS' or text() = 'OGC:SPS' or text() = 'OGC:SAS' or text() = 'OGC:WNS' or text() = 'OGC:ODS' or text() = 'OGC:OGS' or text() = 'OGC:OUS' or text() = 'OGC:OPS' or text() = 'OGC:ORS' or text() = 'OGC:SensorThings' or text() = 'W3C:SPARQL' or text() = 'OASIS:OData' or text() = 'OAS' or text() = 'landingpage'  or text() = 'dataset' or text() = 'application' or text() = 'UKST' ]" />
+		<sch:let name="transferOptions_Protocol" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'OGC:CSW' or normalize-space(text()) = 'OGC:WMS' or normalize-space(text()) = 'OGC:WMTS' or normalize-space(text()) = 'OGC:WFS' or normalize-space(text()) = 'OGC:WCS' or normalize-space(text()) = 'OGC:WCTS' or normalize-space(text()) = 'OGC:WPS' or normalize-space(text()) = 'UKST' or normalize-space(text()) = 'INSPIRE Atom' or normalize-space(text()) = 'OGC:WFS-G' or normalize-space(text()) = 'OGC:SOS' or normalize-space(text()) = 'OGC:SPS' or normalize-space(text()) = 'OGC:SAS' or normalize-space(text()) = 'OGC:WNS' or normalize-space(text()) = 'OGC:ODS' or normalize-space(text()) = 'OGC:OGS' or normalize-space(text()) = 'OGC:OUS' or normalize-space(text()) = 'OGC:OPS' or normalize-space(text()) = 'OGC:ORS' or normalize-space(text()) = 'OGC:SensorThings' or normalize-space(text()) = 'W3C:SPARQL' or normalize-space(text()) = 'OASIS:OData' or normalize-space(text()) = 'OAS' or normalize-space(text()) = 'landingpage'  or normalize-space(text()) = 'dataset' or normalize-space(text()) = 'application' or normalize-space(text()) = 'UKST' ]" />
 
-			<sch:let name="transferOptions_Protocol_isOGCService" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'OGC:WMS' or text() = 'OGC:WFS' or text() = 'OGC:WCS']"/>
+		<sch:let name="transferOptions_Protocol_isOGCService" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'OGC:WMS' or normalize-space(text()) = 'OGC:WFS' or normalize-space(text()) = 'OGC:WCS']"/>
 
-			<sch:let name="transferOptions_MediaType" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'gml' or text() = 'kml' or text() = 'geojson' or text() = 'gpkg' or text() = 'json' or text() = 'jsonld' or text() = 'rdf-xml' or text() = 'xml' or text() = 'zip' or text() = 'png' or text() = 'png' or text() = 'gif' or text() = 'jp2' or text() = 'tiff' or text() = 'csv' or text() = 'mapbox-vector-tile']"/>
+		<sch:let name="transferOptions_MediaType" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'gml' or normalize-space(text()) = 'kml' or normalize-space(text()) = 'geojson' or normalize-space(text()) = 'gpkg' or normalize-space(text()) = 'json' or normalize-space(text()) = 'jsonld' or normalize-space(text()) = 'rdf-xml' or normalize-space(text()) = 'xml' or normalize-space(text()) = 'zip' or normalize-space(text()) = 'png' or normalize-space(text()) = 'png' or normalize-space(text()) = 'gif' or normalize-space(text()) = 'jp2' or normalize-space(text()) = 'tiff' or normalize-space(text()) = 'csv' or normalize-space(text()) = 'mapbox-vector-tile']"/>
+
 
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omschrijving -->
 			<sch:let name="transferOptions_Description_Value" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:description[./gco:CharacterString or ./gmx:Anchor]/*)"/>
@@ -426,8 +427,10 @@
 		    	</sch:report>
 		-->
 
-		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron -->
-			<sch:assert id="coupledResource met xlink en uuidref" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and  ($coupledResourceXlink and $coupledResourceUUID))">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink en uuidref is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
+			Bij tight en mixed moet er een xlink opgenomen zijn
+			-->
+			<sch:assert id="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
 
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
@@ -501,9 +504,9 @@
 			<sch:let name="conformity_Spec_Title_SDS" value="normalize-space($conformity_SpecTitle) = 'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens'"/>
 			<sch:let name="conformity_Spec_Title_NS" value="normalize-space($conformity_SpecTitle) = 'VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten'"/>
 
-			<sch:let name="conformity_Spec_Title_SDS_Invoc_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable']"/>
-			<sch:let name="conformity_Spec_Title_SDS_Interop_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-interoperable']"/>
-			<sch:let name="conformity_Spec_Title_SDS_Harmo_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-harmonised']"/>
+			<sch:let name="conformity_Spec_Title_SDS_Invoc_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable'])"/>
+			<sch:let name="conformity_Spec_Title_SDS_Interop_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-interoperable'])"/>
+			<sch:let name="conformity_Spec_Title_SDS_Harmo_URI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-harmonised'])"/>
 
 		<!-- Specificatie alleen voor INSPIRE-->
 			<!-- -->
@@ -603,7 +606,7 @@
 
 		<!-- Operates on-->
 		<sch:rule id="Relatie met de dataset" context="//gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/srv:operatesOn">
-			<sch:assert id="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert>
+			<!-- <sch:assert id="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
 			<sch:assert id="Coupled resource xlink:href attribuut" test="string(normalize-space(@xlink:href))">Coupled resource heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 		</sch:rule>
 
@@ -709,23 +712,23 @@
 					<sch:let name="thesaurus_TitleURI" value="normalize-space(gmd:title/gmx:Anchor/@xlink:href)"/>
 
 					<!-- 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum -->
-					<sch:let name="thesaurus_publicationDateSring" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
+					<sch:let name="thesaurus_publicationDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
 					<sch:let name="thesaurus_creationDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='creation']/*/gmd:date/gco:Date)"/>
 					<sch:let name="thesaurus_revisionDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='revision']/*/gmd:date/gco:Date)"/>
-					<sch:let name="thesaurus_PublicationDate" value="((number(substring(substring-before($thesaurus_publicationDateSring,'-'),1,4)) &gt; 1000 ))"/>
+					<sch:let name="thesaurus_PublicationDate" value="((number(substring(substring-before($thesaurus_publicationDateString,'-'),1,4)) &gt; 1000 ))"/>
 					<sch:let name="thesaurus_CreationDate" value="((number(substring(substring-before($thesaurus_creationDateString,'-'),1,4)) &gt; 1000 ))"/>
 					<sch:let name="thesaurus_RevisionDate" value="((number(substring(substring-before($thesaurus_revisionDateString,'-'),1,4)) &gt; 1000 ))"/>
 
 		            <!-- Thesaurus titel alleen voor INSPIRE -->
 					<!--  -->
 					<sch:assert id="INSPIRE Thesaurus title (ISO nr. 360)" test="$all_thesaurus_Titles[normalize-space(*/text()) = 'GEMET - INSPIRE themes, version 1.0']">Thesaurus title (ISO nr. 360) ontbreekt of heeft de verkeerde waarde. Eén Thesaurus titel dient de waarde 'GEMET - INSPIRE themes, version 1.0 ' te bevatten.</sch:assert>
-					 <sch:report id="INSPIRE Thesaurus title (ISO nr. 360) info" test="$thesaurus_Title">Thesaurus title (ISO nr. 360) is: <sch:value-of select="$thesaurus_Title"/></sch:report>
+					 <sch:report id="INSPIRE Thesaurus title (ISO nr. 360) info" test="$thesaurus_TitleString">Thesaurus title (ISO nr. 360) is: <sch:value-of select="$thesaurus_TitleString"/></sch:report>
 		        	<!-- Eind Thesaurus titel alleen voor INSPIRE-->
 
 					<!-- Als het de GEMET thesaurus is, moet de datum 2008-06-01 zijn https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum  -->
-					<sch:assert id="Datum INSPIRE Thesaurus is 2008-06-01" test="not($thesaurus_TitleString='GEMET - INSPIRE themes, version 1.0') or ($thesaurus_TitleString='GEMET - INSPIRE themes, version 1.0' and $thesaurus_PublicationDate='2008-06-01')">De INSPIRE Thesaurus heeft niet als publicatie datum 2008-06-01, maar: <sch:value-of select="$thesaurus_PublicationDate"/></sch:assert>
+					<sch:assert id="Datum INSPIRE Thesaurus is 2008-06-01" test="not($thesaurus_TitleString='GEMET - INSPIRE themes, version 1.0') or ($thesaurus_TitleString='GEMET - INSPIRE themes, version 1.0' and $thesaurus_publicationDateString='2008-06-01')">De INSPIRE Thesaurus heeft niet als publicatie datum 2008-06-01, maar: <sch:value-of select="$thesaurus_publicationDateString"/></sch:assert>
 					<!-- TODO: is dit report wel nuttig? -->
-					<sch:report id="Datum INSPIRE Thesaurus is 2008-06-01" test="$thesaurus_TitleString and thesaurus_PublicationDate">Thesaurus <sch:value-of select="$thesaurus_Title"/> heeft publicatiedatum <sch:value-of select="$thesaurus_PublicationDate"/></sch:report>
+					<sch:report id="Datum INSPIRE Thesaurus is 2008-06-01" test="$thesaurus_TitleString and $thesaurus_publicationDateString">Thesaurus <sch:value-of select="$thesaurus_TitleString"/> heeft publicatiedatum <sch:value-of select="$thesaurus_publicationDateString"/></sch:report>
 
 		        	<!-- Thesaurus datum en datumtype 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum en
 					 5.2.16 Thesaurusdatum type https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum-type -->

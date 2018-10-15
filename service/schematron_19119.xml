@@ -299,8 +299,8 @@
 			<!-- Thijs Brentjens: nieuwe controle op codelijst https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codelist-datalicenties -->
 			<sch:assert id="Overige beperkingen en codelijst Datalicenties" test="not($accessConstraints_value = 'otherRestrictions') or ($accessConstraints_value = 'otherRestrictions' and $otherConstraintIsCodelistdatalicense)">Als het element juridische toegangsrestricties de waarde otherRestrictions bevat dient een link uit de codelijst https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codelist-datalicenties naar de licentie en de bijbehorende beschrijving opgenomen te worden. Opgenomen informatie: <sch:value-of select="$otherConstraint1"/> met licentie:<sch:value-of select="$otherConstraintURI1/@xlink:href"/><sch:value-of select="$otherConstraint2"/> en <sch:value-of select="$otherConstraint2"/> <sch:value-of select="$otherConstraintURI2/@xlink:href"/><sch:value-of select="$otherConstraint1"/></sch:assert>
 
-
-			<sch:assert id="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert>
+			<!-- optional / conditional: test verwijderen -->
+			<!-- <sch:assert id="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert> -->
 
 		<!-- service -->
 		<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url -->
@@ -322,11 +322,11 @@
 
 		<!-- Protocol -->
 		<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#protocol -->
-			<sch:let name="transferOptions_Protocol" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'OGC:CSW' or text() = 'OGC:WMS' or text() = 'OGC:WMTS' or text() = 'OGC:WFS' or text() = 'OGC:WCS' or text() = 'OGC:WCTS' or text() = 'OGC:WPS' or text() = 'UKST' or text() = 'INSPIRE Atom' or text() = 'OGC:WFS-G' or text() = 'OGC:SOS' or text() = 'OGC:SPS' or text() = 'OGC:SAS' or text() = 'OGC:WNS' or text() = 'OGC:ODS' or text() = 'OGC:OGS' or text() = 'OGC:OUS' or text() = 'OGC:OPS' or text() = 'OGC:ORS' or text() = 'OGC:SensorThings' or text() = 'W3C:SPARQL' or text() = 'OASIS:OData' or text() = 'OAS' or text() = 'landingpage'  or text() = 'dataset' or text() = 'application' or text() = 'UKST' ]" />
+			<sch:let name="transferOptions_Protocol" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'OGC:CSW' or normalize-space(text()) = 'OGC:WMS' or normalize-space(text()) = 'OGC:WMTS' or normalize-space(text()) = 'OGC:WFS' or normalize-space(text()) = 'OGC:WCS' or normalize-space(text()) = 'OGC:WCTS' or normalize-space(text()) = 'OGC:WPS' or normalize-space(text()) = 'UKST' or normalize-space(text()) = 'INSPIRE Atom' or normalize-space(text()) = 'OGC:WFS-G' or normalize-space(text()) = 'OGC:SOS' or normalize-space(text()) = 'OGC:SPS' or normalize-space(text()) = 'OGC:SAS' or normalize-space(text()) = 'OGC:WNS' or normalize-space(text()) = 'OGC:ODS' or normalize-space(text()) = 'OGC:OGS' or normalize-space(text()) = 'OGC:OUS' or normalize-space(text()) = 'OGC:OPS' or normalize-space(text()) = 'OGC:ORS' or normalize-space(text()) = 'OGC:SensorThings' or normalize-space(text()) = 'W3C:SPARQL' or normalize-space(text()) = 'OASIS:OData' or normalize-space(text()) = 'OAS' or normalize-space(text()) = 'landingpage'  or normalize-space(text()) = 'dataset' or normalize-space(text()) = 'application' or normalize-space(text()) = 'UKST' ]" />
 
-			<sch:let name="transferOptions_Protocol_isOGCService" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'OGC:WMS' or text() = 'OGC:WFS' or text() = 'OGC:WCS']"/>
+			<sch:let name="transferOptions_Protocol_isOGCService" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'OGC:WMS' or normalize-space(text()) = 'OGC:WFS' or normalize-space(text()) = 'OGC:WCS']"/>
 
-			<sch:let name="transferOptions_MediaType" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[text() = 'gml' or text() = 'kml' or text() = 'geojson' or text() = 'gpkg' or text() = 'json' or text() = 'jsonld' or text() = 'rdf-xml' or text() = 'xml' or text() = 'zip' or text() = 'png' or text() = 'png' or text() = 'gif' or text() = 'jp2' or text() = 'tiff' or text() = 'csv' or text() = 'mapbox-vector-tile']"/>
+			<sch:let name="transferOptions_MediaType" value="gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:protocol/*[normalize-space(text()) = 'gml' or normalize-space(text()) = 'kml' or normalize-space(text()) = 'geojson' or normalize-space(text()) = 'gpkg' or normalize-space(text()) = 'json' or normalize-space(text()) = 'jsonld' or normalize-space(text()) = 'rdf-xml' or normalize-space(text()) = 'xml' or normalize-space(text()) = 'zip' or normalize-space(text()) = 'png' or normalize-space(text()) = 'png' or normalize-space(text()) = 'gif' or normalize-space(text()) = 'jp2' or normalize-space(text()) = 'tiff' or normalize-space(text()) = 'csv' or normalize-space(text()) = 'mapbox-vector-tile']"/>
 
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omschrijving -->
 			<sch:let name="transferOptions_Description_Value" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:description[./gco:CharacterString or ./gmx:Anchor]/*)"/>
@@ -422,8 +422,10 @@
 		    	</sch:report>
 		-->
 
-		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron -->
-			<sch:assert id="coupledResource met xlink en uuidref" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and  ($coupledResourceXlink and $coupledResourceUUID))">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink en uuidref is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
+		Bij tight en mixed moet er een xlink opgenomen zijn
+		-->
+			<sch:assert id="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
 
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
@@ -579,7 +581,7 @@
 
 		<!-- Operates on-->
 		<sch:rule id="Relatie met de dataset" context="//gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/srv:operatesOn">
-			<sch:assert id="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert>
+			<!-- <sch:assert id="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
 			<sch:assert id="Coupled resource xlink:href attribuut" test="string(normalize-space(@xlink:href))">Coupled resource heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 		</sch:rule>
 
@@ -687,10 +689,10 @@
 					<sch:let name="thesaurus_TitleURI" value="normalize-space(gmd:title/gmx:Anchor/@xlink:href)"/>
 
 					<!-- 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum -->
-					<sch:let name="thesaurus_publicationDateSring" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
+					<sch:let name="thesaurus_publicationDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
 					<sch:let name="thesaurus_creationDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='creation']/*/gmd:date/gco:Date)"/>
 					<sch:let name="thesaurus_revisionDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='revision']/*/gmd:date/gco:Date)"/>
-					<sch:let name="thesaurus_PublicationDate" value="((number(substring(substring-before($thesaurus_publicationDateSring,'-'),1,4)) &gt; 1000 ))"/>
+					<sch:let name="thesaurus_PublicationDate" value="((number(substring(substring-before($thesaurus_publicationDateString,'-'),1,4)) &gt; 1000 ))"/>
 					<sch:let name="thesaurus_CreationDate" value="((number(substring(substring-before($thesaurus_creationDateString,'-'),1,4)) &gt; 1000 ))"/>
 					<sch:let name="thesaurus_RevisionDate" value="((number(substring(substring-before($thesaurus_revisionDateString,'-'),1,4)) &gt; 1000 ))"/>
 
