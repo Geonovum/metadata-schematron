@@ -259,7 +259,7 @@
 			</sch:report>
 
 			<!-- Datum van de bron en Datum type van de bron, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron en https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron-->
-			<sch:assert id="Datum_van_de_bronISO_nr_394_en_Datumtype_ISO_nr395" etf_name="Datum van de bron(ISO nr. 394) en Datumtype (ISO nr.395)" test="$publicationDate or $creationDate or $revisionDate">Datum van de bron(https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) of Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron) ontbreken of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
+			<sch:assert id="Datum_van_de_bronISO_nr_394_en_Datumtype_ISO_nr395" etf_name="Datum van de bron(ISO nr. 394) en Datumtype (ISO nr.395)" test="$publicationDate or $creationDate or $revisionDate">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) of Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron) ontbreken of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
 			<sch:report id="Datum_van_de_bronISO_nr_394_en_Datatype_ISO_nr395_info" etf_name="Datum van de bron(ISO nr. 394) en Datatype (ISO nr.395) info" test="$publicationDate or $creationDate or $revisionDate">Tenminste 1 datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) is gevonden</sch:report>
 
 

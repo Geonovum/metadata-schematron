@@ -98,7 +98,7 @@
 			<sch:assert id="Hierarchieniveau_ISO_nr_6" etf_name="Hierarchieniveau (ISO nr. 6)" test="$hierarchyLevel">Hierarchieniveau (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveau) ontbreekt of heeft een verkeerde waarde</sch:assert>
 			<sch:report id="Hierarchieniveau_ISO_nr_6_info" etf_name="Hierarchieniveau (ISO nr. 6) info" test="$hierarchyLevel">Hierarchieniveau (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveau) voldoet
 			</sch:report>
-			<sch:assert id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) ontbreekt of heeft een verkeerde waarde</sch:assert>
+			<sch:assert id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) ontbreekt</sch:assert>
 			<sch:report id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) voldoet
 			</sch:report>
 
@@ -242,8 +242,8 @@
 			<sch:assert id="Service_titel_ISO_nr_360" etf_name="Service titel (ISO nr. 360)" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron) ontbreekt</sch:assert>
 			<sch:report id="Service_titel_ISO_nr_360_info" etf_name="Service titel (ISO nr. 360) info" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron): <sch:value-of select="$serviceTitle"/>
 		    	</sch:report>
-			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="($publicationDate or $creationDate or $revisionDate or $begin)">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
-			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="($publicationDate or $creationDate or $revisionDate or $begin)">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
+			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="($publicationDate or $creationDate or $revisionDate)">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
+			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="($publicationDate or $creationDate or $revisionDate)">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
 		    	</sch:report>
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting -->
 			<sch:assert id="Samenvatting_ISO_nr_25" etf_name="Samenvatting (ISO nr. 25)" test="$abstract">Samenvatting (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting) ontbreekt</sch:assert>
@@ -282,8 +282,8 @@
 			<sch:assert id="Gebruiksbeperkingen_ISO_nr_68" etf_name="Gebruiksbeperkingen (ISO nr. 68)" test="$useLimitation">Gebruiksbeperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gebruiksbeperkingen) ontbreken</sch:assert>
 			<sch:report id="Gebruiksbeperkingen_ISO_nr_68_info" etf_name="Gebruiksbeperkingen (ISO nr. 68) info" test="$useLimitation">Gebruiksbeperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gebruiksbeperkingen): <sch:value-of select="$useLimitation"/>
 			</sch:report>
-			<sch:assert id="Overige_beperkingen_1_Anchor_URI_aanwezig" etf_name="Overige beperkingen 1 Anchor URI aanwezig" test="$otherConstraintURI1 and $otherConstraintURI1/@xlink:href">Overige beperkingen eerste element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
-			<sch:assert id="Overige_beperkingen_2_Anchor_URI_aanwezig" etf_name="Overige beperkingen 2 Anchor URI aanwezig" test="$otherConstraintURI2 and $otherConstraintURI2/@xlink:href">Overige beperkingen tweede element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
+			<sch:assert id="Overige_beperkingen_1_Anchor_URI_aanwezig" etf_name="Overige beperkingen 1 Anchor URI aanwezig" test="not($otherConstraintURI1) or ($otherConstraintURI1 and $otherConstraintURI1/@xlink:href)">Overige beperkingen eerste element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
+			<sch:assert id="Overige_beperkingen_2_Anchor_URI_aanwezig" etf_name="Overige beperkingen 2 Anchor URI aanwezig" test="not($otherConstraintURI2) or ($otherConstraintURI2 and $otherConstraintURI2/@xlink:href)">Overige beperkingen tweede element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
 
 			<sch:assert id="Juridische_toegangsrestricties_ISO_nr_70_en_Overige_beperkingen_ISO_nr_72" etf_name="(Juridische) toegangsrestricties (ISO nr. 70) en Overige beperkingen (ISO nr 72)" test="$accessConstraints_value and $otherConstraints ">(Juridische) toegangsrestricties (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties) en Overige beperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen) dienen ingevuld te zijn</sch:assert>
 			<sch:assert id="Juridische_toegangsrestricties_ISO_nr_70" etf_name="(Juridische) toegangsrestricties (ISO nr. 70)" test="$accessConstraints_value">(Juridische) toegangsrestricties (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties) dient de waarde 'anders' te hebben in combinatie met een publiek domein, CC0 of GeoGedeeld licentie bij overige beperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen)</sch:assert>
@@ -310,7 +310,7 @@
 			<!-- Operatie naam https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#operatie-naam -->
 			<sch:let name="operationName" value="normalize-space(gmd:identificationInfo[1]/*/srv:containsOperations[1]/*/srv:operationName/gco:CharacterString)"/>
 
-			<!-- Nieuw, Parameter naam. TODO: check wat er aan assertions nodig is voor: https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#parameter-naam  -->
+			<!-- Nieuw, Parameter naam.check wat er aan assertions nodig is voor: https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#parameter-naam  -->
 
 			<!-- Connectie URL: -->
 			<sch:let name="connectPointString" value="normalize-space(gmd:identificationInfo[1]/*/srv:containsOperations[1]/*/srv:connectPoint/*/gmd:linkage/gmd:URL)"/>
@@ -355,20 +355,16 @@
 
 		<!-- assertions and reports -->
 		<!-- dcp -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
 			<sch:assert id="DCP" etf_name="DCP" test="$dcp_value = 'WebServices'"> DCP ontbreekt  of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="DCP_info" etf_name="DCP info" test="$dcp_value">DCP: <sch:value-of select="$dcp_value"/></sch:report>
 		<!-- operationName -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
 			<sch:assert id="Operatie_naam" etf_name="Operatie naam" test="$operationName">Operatie naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#operatie-naam) ontbreekt of heeft de verkeerde waarde.</sch:assert>
 			<sch:report id="Operatie_naam_info" etf_name="Operatie naam info" test="$operationName">Operatie naam: <sch:value-of select="$operationName"/></sch:report>
 		<!-- connectPoint https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
 			<sch:assert id="Connectie_URL" etf_name="Connectie URL" test="$connectPointString">De connectie URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url) ontbreekt of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="Connectie_URL_info" etf_name="Connectie URL info" test="$connectPointString">Connectie URL: <sch:value-of select="$connectPointString"/></sch:report>
 
 		 <!-- resourceLocator -->
-		 <!-- TODO: Thijs: check of deze assertions nog steeds nodig / geldig zijn. Eventueel herschrijven, voor de leesbaarheid? -->
 			<sch:assert id="URL_en_connectpoint_Linkage_1" etf_name="URL en connectpoint Linkage 1" test="not((not($connectPoint) and not($resourceLocator)) and not($resourceLocatorString=$connectPointString))">URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url) heeft niet dezelfde waarde als de connectie URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url)</sch:assert>
 			<sch:assert id="URL_en_connectpoint_Linkage_2" etf_name="URL en connectpoint Linkage 2" test="not(($connectPoint and not($resourceLocator)) and not($resourceLocatorString=$connectPoint))">URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url) heeft niet dezelfde waarde als de connectie URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url)</sch:assert>
 			<sch:assert id="URL_en_connectpoint_Linkage_3" etf_name="URL en connectpoint Linkage 3" test="not(($resourceLocator and not($connectPoint)) and not($resourceLocator=$connectPointString))">URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url) heeft niet dezelfde waarde als de connectie URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url)</sch:assert>
@@ -395,7 +391,7 @@
 
 	<!-- INSPIRE service type -->
 			<sch:assert id="Service_type_en_network_specificatie" etf_name="Service type en network specificatie" test="not($conformity_Spec_Title_Network_Exsists) or ($conformity_Spec_Title_Network_Exsists and $serviceType_Networkservice)">Service type ontbreekt of heeft de verkeerde waarde, gebruik view of download voor services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
-			<sch:assert id="Service_type_en_SDS_specificatie" etf_name="Service type en SDS specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $serviceType_Other)">Service type ontbreekt of heeft de verkeerde waarde, gebruik de waarde other voor SDS services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
+			<sch:assert id="Service_type_en_SDS_specificatie" etf_name="Service type en SDS specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $serviceType_Other)">Service type ontbreekt of heeft de verkeerde waarde, gebruik de waarde other voor INSPIRE services die geen INSPIRE view of INSPIRE download service zijn</sch:assert>
 
 	<!-- alleen INSPIRE specificatie in combi met servicetype alleen bij INSPIRE ckecken-->
 	<!--
@@ -407,29 +403,28 @@
 		<!-- INSPIRE SDS -->
 			<sch:assert id="Beschrijving" etf_name="Beschrijving" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $transferOptions_Description_Value = 'accessPoint')">beschrijving ontbreekt of heeft de verkeerde waarde, gebruik voor INSPIRE SDS de waarde accessPoint</sch:assert>
 			<sch:report id="Beschrijving_info" etf_name="Beschrijving info" test="$transferOptions_Description_Value">Service type: <sch:value-of select="$transferOptions_Description_Value"/></sch:report>
-			<sch:assert id="Resource_locator_URL_getCapabilities" etf_name="Resource locator URL getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">URL naar de service moet een getCapabilities request bevatten</sch:assert>
 
 	<!-- eind  INSPIRE	SDS-->
 			<!-- couplingType -->
-			<sch:assert id="Coupling_type" etf_name="Coupling type" test="$couplingType">Coupling type ontbreekt of heeft de verkeerde waarde</sch:assert>
-			<sch:report id="Coupling_type_info" etf_name="Coupling type info" test="$couplingType">Coupling type: <sch:value-of select="$couplingType_value"/>
+			<sch:assert id="Coupling_type" etf_name="Koppel type" test="$couplingType">Koppel type ontbreekt of heeft de verkeerde waarde</sch:assert>
+			<sch:report id="Coupling_type_info" etf_name="Koppel type info" test="$couplingType">Koppel type: <sch:value-of select="$couplingType_value"/>
 		   	</sch:report>
 
 
-		<!-- coupling type is niet nodig
-		    	<sch:assert id="coupling_type" etf_name="coupling type" test="not($couplingType_value='loose')">'coupling type' heeft de verkeerde waarde; loose is alleen mogelijk als er geen data aan de service gekoppeld is</sch:assert>
-		    	<sch:report id="coupling_type_info" etf_name="coupling type info" test="not($couplingType_value='loose')">'coupling type' : <sch:value-of select="$couplingType_value"/>
+		<!-- Koppel type is niet nodig
+		    	<sch:assert id="coupling_type" etf_name="Koppel type" test="not($couplingType_value='loose')">'Koppel type' heeft de verkeerde waarde; loose is alleen mogelijk als er geen data aan de service gekoppeld is</sch:assert>
+		    	<sch:report id="coupling_type_info" etf_name="Koppel type info" test="not($couplingType_value='loose')">'Koppel type' : <sch:value-of select="$couplingType_value"/>
 		    	</sch:report>
 		-->
 
-		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
+		<!-- Gekoppelde bron afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
 		Bij tight en mixed moet er een xlink opgenomen zijn
 		-->
-			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
-			<sch:assert id="Geografisch_gebied" etf_name="Geografisch gebied" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation)">Geografisch gebied  is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+			<sch:assert id="Geografisch_gebied" etf_name="Geografisch gebied" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation)">Geografisch gebied  is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 			<sch:report id="Geografisch_gebied_info" etf_name="Geografisch gebied info" test="($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation">Geografisch gebied : <sch:value-of select="$geographicLocation"/>
 			</sch:report>
 			<sch:assert id="Minimum_x-coordinaat_ISO_nr_344" etf_name="Minimum x-coordinaat (ISO nr. 344)"  test="(-180.00 &lt; $west) and ( $west &lt; 180.00) or ( $west = 0.00 ) or ( $west = -180.00 ) or ( $west = 180.00 )">Minimum x-coördinaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek) ontbreekt of heeft een verkeerde waarde</sch:assert>
@@ -581,76 +576,45 @@
 
 		<!-- Operates on-->
 		<sch:rule id="Relatie_met_de_dataset" etf_name="Relatie met de dataset" context="//gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/srv:operatesOn">
-			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
-			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Coupled resource xlink:href attribuut" test="string(normalize-space(@xlink:href))">Coupled resource heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
+			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Gekoppelde bron uuidref attribuut" test="string(normalize-space(@uuidref))">Gekoppelde bron heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
+			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Gekoppelde bron xlink:href attribuut" test="string(normalize-space(@xlink:href))">Gekoppelde bron heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 		</sch:rule>
 
 		<!-- INSPIRE interop interoperabele servicekwaliteit  -->
-		<!-- TODO: assertion om te checken of iets een INSPIRE interoperabele service is? -->
-		<sch:rule id="INSPIRE_interoperabele_service_-_service_kwaliteit" etf_name="INSPIRE interoperabele service - service kwaliteit" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_ConceptualConsistency">
+		<sch:rule id="INSPIRE_interoperabele_service_-_service_kwaliteit" etf_name="INSPIRE interoperabele service - service kwaliteit" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality[gmd:report/gmd:DQ_ConceptualConsistency]">
 			<!-- anchor verplicht -->
-			<!-- TODO: test of dit werkt -->
-			<sch:let name="all_quality_measures" value="ancestor::gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_ConceptualConsistency/gmd:nameOfMeasure/gmx:Anchor"/>
-			<sch:let name="all_quality_measures_join" value="normalize-space(string-join(($all_quality_measures), ','))"/>
 
-			<sch:let name="quality_name_Of_Measure" value="normalize-space(gmd:nameOfMeasure/gmx:Anchor)"/>
+			<sch:let name="quality_name_Of_Measure_Availability" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability'])"/>
+			<sch:let name="quality_name_Of_Measure_Performance" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance'])"/>
+			<sch:let name="quality_name_Of_Measure_Capacity" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity'])"/>
 
-			<sch:let name="quality_name_Of_Measure_Availability" value="normalize-space(gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability'])"/>
-			<sch:let name="quality_name_Of_Measure_Performance" value="normalize-space(gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance'])"/>
-			<sch:let name="quality_name_Of_Measure_Capacity" value="normalize-space(gmd:nameOfMeasure/gmx:Anchor[@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity'])"/>
-
-			<sch:let name="quality_measure_Identification" value="normalize-space(gmd:measureIdentification/gmd:MD_Identifier/gmd:code/gco:CharacterString)"/>
-
-			<sch:let name="quality_measure_Description" value="normalize-space(gmd:measureDescription/gco:CharacterString)"/>
-
-			<!-- TODO: test deze parameters -->
-			<sch:let name="quality_measure_Description_Availability" value="normalize-space(gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gco:CharacterString)"/>
-			<sch:let name="quality_measure_Description_Performance" value="normalize-space(gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gco:CharacterString)"/>
-			<sch:let name="quality_measure_Description_Capacity" value="normalize-space(gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gco:CharacterString)"/>
+			<sch:let name="quality_measure_Description_Availability" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gco:CharacterString)"/>
+			<sch:let name="quality_measure_Description_Performance" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gco:CharacterString)"/>
+			<sch:let name="quality_measure_Description_Capacity" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:measureDescription[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gco:CharacterString)"/>
 
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-waarde -->
-			<sch:let name="quality_result" value="normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
-			<sch:let name="quality_result_Availability" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
-			<sch:let name="quality_result_Performance" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
-			<sch:let name="quality_result_Capacity" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
+			<sch:let name="quality_result_Availability" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
+			<sch:let name="quality_result_Performance" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
+			<sch:let name="quality_result_Capacity" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gmd:DQ_QuantitativeResult/gmd:value/gco:Record)"/>
 
-			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-type-waarde -->
-			<sch:let name="quality_value_unit" value="normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
-			<sch:let name="quality_value_unit_Availability" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
-			<sch:let name="quality_value_unit_Performance" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
-			<sch:let name="quality_value_unit_Capacity" value="normalize-space(gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
+			<sch:let name="quality_value_unit_Availability" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/availability']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
+			<sch:let name="quality_value_unit_Performance" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/performance']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
+			<sch:let name="quality_value_unit_Capacity" value="normalize-space(gmd:report/gmd:DQ_ConceptualConsistency/gmd:result[../gmd:nameOfMeasure/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/QualityOfServiceCriteriaCode/capacity']/gmd:DQ_QuantitativeResult/gmd:valueUnit/@xlink:href)"/>
 
-			<!-- TODO: is dit nog ergens voor nodig? mag het een nilReason zijn voor de service kwaliteit? -->
-			<sch:let name="quality_value_unit_Reason" value="contains(normalize-space(gmd:result/gmd:DQ_QuantitativeResult/gmd:valueUnit/@gco:nilReason),'inapplicable')"/>
-
-			<!-- SDS veranderd in interoperabele service -->
-			<sch:report id="INSPIRE_interoperabele_service_kwaliteit_ISO_nr_100__availability_info" etf_name="INSPIRE interoperabele service kwaliteit (ISO nr. 100 ) availability info" test="$all_quality_measures_join">Aanwezige kwaliteits meetingen: <sch:value-of select="$all_quality_measures_join"/>
-			</sch:report>
-
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_identificatie_ISO_nr_101_" etf_name="INSPIRE interoperabele service kwaliteit identificatie (ISO nr. 101 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_measure_Identification)">Identificatie van service kwaliteitsmeeting (ISO nr. 101) is verplicht als een meeting is opgegeven.</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschrijving_ISO_nr_102_" etf_name="INSPIRE interoperabele service kwaliteit beschrijving (ISO nr. 102 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_measure_Description)">Beschrijving van service kwaliteit (ISO nr. 102) is verplicht als een meeting is opgegeven.</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_resultaat_ISO_nr_107_" etf_name="INSPIRE interoperabele service kwaliteit resultaat (ISO nr. 107 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and $quality_result)">Resultaat van service kwaliteit (ISO nr. 107) is verplicht als een meeting is opgegeven.</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_eenheid_waarde_ISO_nr_107_" etf_name="INSPIRE interoperabele service kwaliteit eenheid waarde (ISO nr. 107 )" test="not($quality_name_Of_Measure) or ($quality_name_Of_Measure and ($quality_value_unit or $quality_value_unit_Reason))">Voor resultaat van service kwaliteit (ISO nr. 107) is ook een eenheid verplicht als een meeting is opgegeven.</sch:assert>
-
-
-			<!-- TODO: test file -->
-			<!-- TODO: conditioneel: verplicht voor INSPIRE interoperabele services -->
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschikbaarheid" etf_name="INSPIRE interoperabele service kwaliteit beschikbaarheid" test="$quality_name_Of_Measure_Availability">De beschikbaarheid van de service is niet beschreven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria)</sch:assert>
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance" etf_name="INSPIRE interoperabele service kwaliteit performance" test="$quality_name_Of_Measure_Performance">De performance van de service is niet beschreven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria)</sch:assert>
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_capaciteit" etf_name="INSPIRE interoperabele service kwaliteit capaciteit" test="$quality_name_Of_Measure_Capacity">De capaciteit van de service is niet beschreven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria)</sch:assert>
 
-			<!-- TODO: conditioneel: verplicht voor INSPIRE interoperabele services -->
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschikbaarheid" etf_name="INSPIRE interoperabele service kwaliteit beschikbaarheid" test="$quality_measure_Description_Availability">De criterium beschrijving van de beschikbaarheid van de service is niet opgegeven  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance" etf_name="INSPIRE interoperabele service kwaliteit performance" test="$quality_measure_Description_Performance">De criterium beschrijving van de performance van de service is niet opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_capaciteit" etf_name="INSPIRE interoperabele service kwaliteit capaciteit" test="$quality_measure_Description_Capacity">De criterium beschrijving van de capaciteit van de service is niet opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
+			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschikbaarheid_beschrijving" etf_name="INSPIRE interoperabele service kwaliteit beschikbaarheid beschrijving" test="$quality_measure_Description_Availability">De criterium beschrijving van de beschikbaarheid van de service is niet opgegeven  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
+			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance_beschrijving" etf_name="INSPIRE interoperabele service kwaliteit performance beschrijving" test="$quality_measure_Description_Performance">De criterium beschrijving van de performance van de service is niet opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
+			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_capaciteit_beschrijving" etf_name="INSPIRE interoperabele service kwaliteit capaciteit beschrijving" test="$quality_measure_Description_Capacity">De criterium beschrijving van de capaciteit van de service is niet opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-beschrijving)</sch:assert>
 
 
 			<!-- TODO: conditioneel: verplicht voor INSPIRE interoperabele services -->
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschikbaarheid_type_waarde" etf_name="INSPIRE interoperabele service kwaliteit beschikbaarheid type waarde" test="$quality_value_unit_Availability='urn:ogc:def:uom:OGC::percent'">Het type waarde voor de beschikbaarheid van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-type-waarde). Het moet zijn: 'urn:ogc:def:uom:OGC::percent', maar '<sch:value-of select="$quality_value_unit_Availability"/>' is opgegeven.</sch:assert>
-			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance_type_waarde" etf_name="INSPIRE interoperabele service kwaliteit performance type waarde" test="$quality_value_unit_Performance=' 	http://www.opengis.net/def/uom/SI/second'">Het type waarde voor de performance van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-type-waarde). Het moet zijn: 'http://www.opengis.net/def/uom/SI/second', maar '<sch:value-of select="$quality_value_unit_Performance"/>' is opgegeven.</sch:assert>
+			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance_type_waarde" etf_name="INSPIRE interoperabele service kwaliteit performance type waarde" test="$quality_value_unit_Performance='http://www.opengis.net/def/uom/SI/second'">Het type waarde voor de performance van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-type-waarde). Het moet zijn: 'http://www.opengis.net/def/uom/SI/second', maar '<sch:value-of select="$quality_value_unit_Performance"/>' is opgegeven.</sch:assert>
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_capaciteit_type_waarde" etf_name="INSPIRE interoperabele service kwaliteit capaciteit type waarde" test="$quality_value_unit_Capacity='http://www.opengis.net/def/uom/OGC/1.0/unity'">Het type waarde voor de capaciteit van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-type-waarde). Het moet zijn: 'http://www.opengis.net/def/uom/OGC/1.0/unity', maar '<sch:value-of select="$quality_value_unit_Performance"/>' is opgegeven.</sch:assert>
 
-			<!-- TODO: conditioneel: verplicht voor INSPIRE interoperabele services -->
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_beschikbaarheid_waarde" etf_name="INSPIRE interoperabele service kwaliteit beschikbaarheid waarde" test="$quality_result_Availability">De meetwaarde voor de beschikbaarheid van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-waarde).</sch:assert>
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_performance_waarde" etf_name="INSPIRE interoperabele service kwaliteit performance waarde" test="$quality_result_Performance">De meetwaarde voor de performance van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-waarde).</sch:assert>
 			<sch:assert id="INSPIRE_interoperabele_service_kwaliteit_capaciteit_waarde" etf_name="INSPIRE interoperabele service kwaliteit capaciteit waarde" test="$quality_result_Capacity">De meetwaarde voor de capaciteit van de service is niet correct opgegeven (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#criteria-waarde).</sch:assert>
@@ -665,9 +629,10 @@
 		<!-- Referentiesysteem  -->
 		<sch:rule id="Referentiesysteem" etf_name="Referentiesysteem" context="//gmd:MD_Metadata/gmd:referenceSystemInfo/*">
 			<!--  Ruimtelijk referentiesysteem  https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem -->
-			<!-- Geen RS_Identifier meer, maar alleen een MD_Identifier -->
-			<sch:let name="referenceSystemInfo_CodeString" value="normalize-space(gmd:referenceSystemIdentifier/gmd:MD_Identifier/gmd:code/gco:CharacterString)"/>
-			<sch:let name="referenceSystemInfo_CodeURI" value="normalize-space(gmd:referenceSystemIdentifier/gmd:MD_Identifier/gmd:code/gmx:Anchor/@xlink:href)"/>
+			<!-- Oud commentaar: geen RS_Identifier meer, maar alleen een MD_Identifier -->
+			<!-- N.a.v. test 21 november 2018 beide toestaan -->
+			<sch:let name="referenceSystemInfo_CodeString" value="normalize-space(gmd:referenceSystemIdentifier/*/gmd:code/gco:CharacterString)"/>
+			<sch:let name="referenceSystemInfo_CodeURI" value="normalize-space(gmd:referenceSystemIdentifier/*/gmd:code/gmx:Anchor/@xlink:href)"/>
 
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert>
 			<sch:report id="Code_referentiesysteem_ISO_nr_207_info" etf_name="Code referentiesysteem (ISO nr. 207) info" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem): <sch:value-of select="$referenceSystemInfo_CodeString"/> <sch:value-of select="$referenceSystemInfo_CodeURI"/>
@@ -765,7 +730,26 @@ Deze keywords  komen niet overeen met GEMET- INSPIRE themes thesaurus. gevonden 
 		          -->
 		</sch:rule>
 
+		<sch:rule id="Waarschuwingen_-_Algemene_metadata_regels" etf_name="Waarschuwingen - Algemene metadata regels" context="/gmd:MD_Metadata">
+			<sch:let name="conformity_Spec_Title1" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[1]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title2" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[2]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title3" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[3]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title4" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[4]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title5" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[5]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title6" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[6]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title7" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[7]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+			<sch:let name="conformity_Spec_Title8" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[8]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 
+			<sch:let name="conformity_Spec_Title_All" value="concat(string($conformity_Spec_Title1),string($conformity_Spec_Title2),string($conformity_Spec_Title3),string($conformity_Spec_Title4),string($conformity_Spec_Title5),string($conformity_Spec_Title6),string($conformity_Spec_Title7),string($conformity_Spec_Title8))"/>
+			<sch:let name="conformity_Spec_Title_Interoperability_Exsists" value="contains($conformity_Spec_Title_All,'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens')"/>
+			<sch:let name="conformity_Spec_Title_Network_Exsists" value="contains($conformity_Spec_Title_All,'VERORDENING (EG) Nr. 976/2009 VAN DE COMMISSIE van 19 oktober 2009 tot uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad wat betreft de netwerkdiensten')"/>
+				<sch:let name="resourceLocatorString" value="normalize-space(gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine[1]/gmd:CI_OnlineResource/gmd:linkage/gmd:URL)"/>
+				<sch:let name="conformity_Spec_Title_SDS_Exsists" value="(contains($conformity_Spec_Title_All,'invocable') or contains($conformity_Spec_Title_All,'interoperable') or contains($conformity_Spec_Title_All,'harmonised'))"/>
+
+				<sch:assert id="Resource_locator_URL_getCapabilities" etf_name="Resource locator URL getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">URL naar de service moet een getCapabilities request bevatten, conformity_Spec_Title_SDS_Exsists: <sch:value-of select="$conformity_Spec_Title_SDS_Exsists"/> URL: <sch:value-of select="$resourceLocatorString"/></sch:assert>
+
+
+			</sch:rule>
 
 	</sch:pattern>
 </sch:schema>

@@ -104,7 +104,7 @@
 			<sch:assert id="Hierarchieniveau_ISO_nr_6" etf_name="Hierarchieniveau (ISO nr. 6)" test="$hierarchyLevel">Hierarchieniveau (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveau) ontbreekt of heeft een verkeerde waarde</sch:assert>
 			<sch:report id="Hierarchieniveau_ISO_nr_6_info" etf_name="Hierarchieniveau (ISO nr. 6) info" test="$hierarchyLevel">Hierarchieniveau (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveau) voldoet
 			</sch:report>
-			<sch:assert id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) ontbreekt of heeft een verkeerde waarde</sch:assert>
+			<sch:assert id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) ontbreekt</sch:assert>
 			<sch:report id="Hierarchieniveau_naam" etf_name="Hierarchieniveau naam" test="$hierarchyLevelName">Hierarchieniveau naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hi%C3%ABrarchieniveaunaam) voldoet
 			</sch:report>
 
@@ -249,8 +249,9 @@
 			<sch:assert id="Service_titel_ISO_nr_360" etf_name="Service titel (ISO nr. 360)" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron) ontbreekt</sch:assert>
 			<sch:report id="Service_titel_ISO_nr_360_info" etf_name="Service titel (ISO nr. 360) info" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron): <sch:value-of select="$serviceTitle"/>
 		    	</sch:report>
-			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="($publicationDate or $creationDate or $revisionDate or $begin)">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
-			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="($publicationDate or $creationDate or $revisionDate or $begin)">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
+			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="($publicationDate or $creationDate or $revisionDate)">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
+
+			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="($publicationDate or $creationDate or $revisionDate)">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
 		    	</sch:report>
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting -->
 			<sch:assert id="Samenvatting_ISO_nr_25" etf_name="Samenvatting (ISO nr. 25)" test="$abstract">Samenvatting (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting) ontbreekt</sch:assert>
@@ -287,8 +288,8 @@
 			<sch:assert id="Gebruiksbeperkingen_ISO_nr_68" etf_name="Gebruiksbeperkingen (ISO nr. 68)" test="$useLimitation">Gebruiksbeperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gebruiksbeperkingen) ontbreken</sch:assert>
 			<sch:report id="Gebruiksbeperkingen_ISO_nr_68_info" etf_name="Gebruiksbeperkingen (ISO nr. 68) info" test="$useLimitation">Gebruiksbeperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gebruiksbeperkingen): <sch:value-of select="$useLimitation"/>
 			</sch:report>
-			<sch:assert id="Overige_beperkingen_1_Anchor_URI_aanwezig" etf_name="Overige beperkingen 1 Anchor URI aanwezig" test="$otherConstraintURI1 and $otherConstraintURI1/@xlink:href">Overige beperkingen eerste element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
-			<sch:assert id="Overige_beperkingen_2_Anchor_URI_aanwezig" etf_name="Overige beperkingen 2 Anchor URI aanwezig" test="$otherConstraintURI2 and $otherConstraintURI2/@xlink:href">Overige beperkingen tweede element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
+			<sch:assert id="Overige_beperkingen_1_Anchor_URI_aanwezig" etf_name="Overige beperkingen 1 Anchor URI aanwezig" test="not($otherConstraintURI1) or ($otherConstraintURI1 and $otherConstraintURI1/@xlink:href)">Overige beperkingen eerste element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
+			<sch:assert id="Overige_beperkingen_2_Anchor_URI_aanwezig" etf_name="Overige beperkingen 2 Anchor URI aanwezig" test="not($otherConstraintURI2) or ($otherConstraintURI2 and $otherConstraintURI2/@xlink:href)">Overige beperkingen tweede element: de URI (xlink:href) dient ingevuld te zijn</sch:assert>
 
 			<sch:assert id="Juridische_toegangsrestricties_ISO_nr_70_en_Overige_beperkingen_ISO_nr_72" etf_name="(Juridische) toegangsrestricties (ISO nr. 70) en Overige beperkingen (ISO nr 72)" test="$accessConstraints_value and $otherConstraints ">(Juridische) toegangsrestricties (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties) en Overige beperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen) dienen ingevuld te zijn</sch:assert>
 			<sch:assert id="Juridische_toegangsrestricties_ISO_nr_70" etf_name="(Juridische) toegangsrestricties (ISO nr. 70)" test="$accessConstraints_value">(Juridische) toegangsrestricties (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties) dient de waarde 'anders' te hebben in combinatie met een publiek domein, CC0 of GeoGedeeld licentie bij overige beperkingen (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen)</sch:assert>
@@ -364,15 +365,15 @@
 
 		<!-- assertions and reports -->
 		<!-- dcp -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
+		<!-- TODO: is alleen verplicht als er een Gekoppelde bron is? -->
 			<sch:assert id="DCP" etf_name="DCP" test="$dcp_value = 'WebServices'"> DCP ontbreekt  of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="DCP_info" etf_name="DCP info" test="$dcp_value">DCP: <sch:value-of select="$dcp_value"/></sch:report>
 		<!-- operationName -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
+		<!-- TODO: is alleen verplicht als er een Gekoppelde bron is? -->
 			<sch:assert id="Operatie_naam" etf_name="Operatie naam" test="$operationName">Operatie naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#operatie-naam) ontbreekt of heeft de verkeerde waarde.</sch:assert>
 			<sch:report id="Operatie_naam_info" etf_name="Operatie naam info" test="$operationName">Operatie naam: <sch:value-of select="$operationName"/></sch:report>
 		<!-- connectPoint https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url -->
-		<!-- TODO: is alleen verplicht als er een coupled resource is? -->
+		<!-- TODO: is alleen verplicht als er een Gekoppelde bron is? -->
 			<sch:assert id="Connectie_URL" etf_name="Connectie URL" test="$connectPointString">De connectie URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#connectie-url) ontbreekt of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="Connectie_URL_info" etf_name="Connectie URL info" test="$connectPointString">Connectie URL: <sch:value-of select="$connectPointString"/></sch:report>
 
@@ -404,7 +405,7 @@
 
 	 <!-- INSPIRE service type -->
 			<sch:assert id="Service_type_en_network_specificatie" etf_name="Service type en network specificatie" test="not($conformity_Spec_Title_Network_Exsists) or ($conformity_Spec_Title_Network_Exsists and $serviceType_Networkservice)">Service type ontbreekt of heeft de verkeerde waarde, gebruik view of download voor services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
-			<sch:assert id="Service_type_en_SDS_specificatie" etf_name="Service type en SDS specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $serviceType_Other)">Service type ontbreekt of heeft de verkeerde waarde, gebruik de waarde other voor SDS services die aan betreffende specificaties van INSPIRE voldoen.</sch:assert>
+			<sch:assert id="Service_type_en_SDS_specificatie" etf_name="Service type en SDS specificatie" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $serviceType_Other)">Service type ontbreekt of heeft de verkeerde waarde, gebruik de waarde other voor INSPIRE services die geen INSPIRE view of INSPIRE download service zijn</sch:assert>
 
 
 	<!-- alleen INSPIRE specificatie in combi met servicetype alleen bij INSPIRE ckecken-->
@@ -417,30 +418,30 @@
 			<sch:assert id="Beschrijving" etf_name="Beschrijving" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and $transferOptions_Description_Value = 'accessPoint')">beschrijving ontbreekt of heeft de verkeerde waarde, gebruik voor INSPIRE SDS de waarde accessPoint</sch:assert>
 			<sch:report id="Beschrijving_info" etf_name="Beschrijving info" test="$transferOptions_Description_Value">Service type: <sch:value-of select="$transferOptions_Description_Value"/></sch:report>
 
-			<!--TODO: Dit is te streng, SDS hoeft geen OGC service met GetCapabilitites te zijn. Dus naar waarschuwingen verplaatsen? Lijkt nu niet goed te werken alleen. -->
-		<sch:assert id="Resource_locator_URL_getCapabilities" etf_name="Resource locator URL getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">URL naar de service moet een getCapabilities request bevatten</sch:assert>
+			<!-- Dit is te streng, SDS hoeft geen OGC service met GetCapabilitites te zijn. Dus naar waarschuwingen verplaatst. Lijkt nu niet goed te werken alleen. -->
+		<!-- <sch:assert id="Resource_locator_URL_getCapabilities" etf_name="Resource locator URL getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">URL naar de service moet een getCapabilities request bevatten</sch:assert> -->
 
 	<!-- eind  INSPIRE	SDS-->
 			<!-- couplingType -->
-			<sch:assert id="Coupling_type" etf_name="Coupling type" test="$couplingType">Coupling type ontbreekt of heeft de verkeerde waarde</sch:assert>
-			<sch:report id="Coupling_type_info" etf_name="Coupling type info" test="$couplingType">Coupling type: <sch:value-of select="$couplingType_value"/>
+			<sch:assert id="Coupling_type" etf_name="Koppel type" test="$couplingType">Koppel type ontbreekt of heeft de verkeerde waarde</sch:assert>
+			<sch:report id="Coupling_type_info" etf_name="Koppel type info" test="$couplingType">Koppel type: <sch:value-of select="$couplingType_value"/>
 		   	</sch:report>
 
 
-		<!-- coupling type is niet nodig
-		    	<sch:assert id="coupling_type" etf_name="coupling type" test="not($couplingType_value='loose')">'coupling type' heeft de verkeerde waarde; loose is alleen mogelijk als er geen data aan de service gekoppeld is</sch:assert>
-		    	<sch:report id="coupling_type_info" etf_name="coupling type info" test="not($couplingType_value='loose')">'coupling type' : <sch:value-of select="$couplingType_value"/>
+		<!-- Koppel type is niet nodig
+		    	<sch:assert id="coupling_type" etf_name="Koppel type" test="not($couplingType_value='loose')">'Koppel type' heeft de verkeerde waarde; loose is alleen mogelijk als er geen data aan de service gekoppeld is</sch:assert>
+		    	<sch:report id="coupling_type_info" etf_name="Koppel type info" test="not($couplingType_value='loose')">'Koppel type' : <sch:value-of select="$couplingType_value"/>
 		    	</sch:report>
 		-->
 
-		<!-- Coupled resource afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
+		<!-- Gekoppelde bron afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
 			Bij tight en mixed moet er een xlink opgenomen zijn
 			-->
-			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
-			<sch:assert id="Geografisch_gebied" etf_name="Geografisch gebied" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation)">Geografisch gebied  is verplicht indien data aan de service is gekoppeld (coupled resource 'tight' of 'mixed').</sch:assert>
+			<sch:assert id="Geografisch_gebied" etf_name="Geografisch gebied" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation)">Geografisch gebied  is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 			<sch:report id="Geografisch_gebied_info" etf_name="Geografisch gebied info" test="($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation">Geografisch gebied : <sch:value-of select="$geographicLocation"/>
 			</sch:report>
 			<sch:assert id="Minimum_x-coordinaat_ISO_nr_344" etf_name="Minimum x-coordinaat (ISO nr. 344)"  test="(-180.00 &lt; $west) and ( $west &lt; 180.00) or ( $west = 0.00 ) or ( $west = -180.00 ) or ( $west = 180.00 )">Minimum x-coördinaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek) ontbreekt of heeft een verkeerde waarde</sch:assert>
@@ -611,12 +612,11 @@
 
 		<!-- Operates on-->
 		<sch:rule id="Relatie_met_de_dataset" etf_name="Relatie met de dataset" context="//gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/srv:operatesOn">
-			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Coupled resource uuidref attribuut" test="string(normalize-space(@uuidref))">Coupled resource heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
-			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Coupled resource xlink:href attribuut" test="string(normalize-space(@xlink:href))">Coupled resource heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
+			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Gekoppelde bron uuidref attribuut" test="string(normalize-space(@uuidref))">Gekoppelde bron heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
+			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Gekoppelde bron xlink:href attribuut" test="string(normalize-space(@xlink:href))">Gekoppelde bron heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 		</sch:rule>
 
 		<!-- INSPIRE interop interoperabele servicekwaliteit  -->
-		<!-- TODO: assertion om te checken dat de criteria zijn opgenomen? als invocable, harmonised of network service moet //gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_ConceptualConsistency aanwezig zijn  -->
 		<sch:rule id="INSPIRE_interoperabele_service_-_service_kwaliteit" etf_name="INSPIRE interoperabele service - service kwaliteit" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality[gmd:report/gmd:DQ_ConceptualConsistency]">
 			<!-- anchor verplicht -->
 
@@ -682,9 +682,10 @@
 		<!-- Referentiesysteem -->
 		<sch:rule id="Referentiesysteem" etf_name="Referentiesysteem" context="//gmd:MD_Metadata/gmd:referenceSystemInfo/*">
 			<!--  Ruimtelijk referentiesysteem  https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem -->
-			<!-- Geen RS_Identifier meer, maar alleen een MD_Identifier -->
-			<sch:let name="referenceSystemInfo_CodeString" value="normalize-space(gmd:referenceSystemIdentifier/gmd:MD_Identifier/gmd:code/gco:CharacterString)"/>
-			<sch:let name="referenceSystemInfo_CodeURI" value="normalize-space(gmd:referenceSystemIdentifier/gmd:MD_Identifier/gmd:code/gmx:Anchor/@xlink:href)"/>
+			<!-- Oud commentaar: geen RS_Identifier meer, maar alleen een MD_Identifier -->
+			<!-- N.a.v. test 21 november 2018 beide toestaan -->
+			<sch:let name="referenceSystemInfo_CodeString" value="normalize-space(gmd:referenceSystemIdentifier/*/gmd:code/gco:CharacterString)"/>
+			<sch:let name="referenceSystemInfo_CodeURI" value="normalize-space(gmd:referenceSystemIdentifier/*/gmd:code/gmx:Anchor/@xlink:href)"/>
 
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem) ontbreekt</sch:assert>
 			<sch:report id="Code_referentiesysteem_ISO_nr_207_info" etf_name="Code referentiesysteem (ISO nr. 207) info" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem): <sch:value-of select="$referenceSystemInfo_CodeString"/> <sch:value-of select="$referenceSystemInfo_CodeURI"/>
@@ -804,6 +805,7 @@ Deze keywords komen niet overeen met GEMET- INSPIRE themes thesaurus. gevonden k
 			<sch:let name="conformity_Spec_Title_SDS_Exsists" value="(contains($conformity_Spec_Title_All,'invocable') or contains($conformity_Spec_Title_All,'interoperable') or contains($conformity_Spec_Title_All,'harmonised'))"/>
 
 			<sch:assert id="Resource_locator_URL_getCapabilities" etf_name="Resource locator URL getCapabilities" test="not($conformity_Spec_Title_SDS_Exsists) or ($conformity_Spec_Title_SDS_Exsists and contains(translate($resourceLocatorString, $lowercase, $uppercase),'GETCAPABILITIES'))">URL naar de service moet een getCapabilities request bevatten, conformity_Spec_Title_SDS_Exsists: <sch:value-of select="$conformity_Spec_Title_SDS_Exsists"/> URL: <sch:value-of select="$resourceLocatorString"/></sch:assert>
+
 
 		</sch:rule>
 
