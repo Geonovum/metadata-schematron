@@ -136,6 +136,10 @@
 			<sch:let name="serviceTitle" value="normalize-space(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:title/gco:CharacterString)"/>
 		 <!-- Service referentie datum -->
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron en https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-type-van-de-bron -->
+
+			<sch:let name="date" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date/*/gmd:date/gco:Date)"/>
+			<sch:let name="dateYear" value="((number(substring(substring-before($date,'-'),1,4)) &gt; 1000 ))"/>
+
 			<sch:let name="publicationDateString" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[./*/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
 			<sch:let name="creationDateString" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[./*/gmd:dateType/*/@codeListValue='creation']/*/gmd:date/gco:Date)"/>
 			<sch:let name="revisionDateString" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[./*/gmd:dateType/*/@codeListValue='revision']/*/gmd:date/gco:Date)"/>
@@ -242,9 +246,11 @@
 			<sch:assert id="Service_titel_ISO_nr_360" etf_name="Service titel (ISO nr. 360)" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron) ontbreekt</sch:assert>
 			<sch:report id="Service_titel_ISO_nr_360_info" etf_name="Service titel (ISO nr. 360) info" test="$serviceTitle">Service titel (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#titel-van-de-bron): <sch:value-of select="$serviceTitle"/>
 		    	</sch:report>
-			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="($publicationDate or $creationDate or $revisionDate)">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
-			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="($publicationDate or $creationDate or $revisionDate)">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
+			<sch:assert id="Datum_van_de_bron_ISO_nr_394" etf_name="Datum van de bron (ISO nr. 394)" test="$dateYear">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) ontbreekt of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
+			<sch:report id="Datum_van_de_bron_ISO_nr_394_info" etf_name="Datum van de bron (ISO nr. 394) info" test="$dateYear">Tenminste 1 Datum van de bron  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron) is gevonden
 		    	</sch:report>
+			<sch:assert id="Datumtype_van_de_bron_ISO_nr_395" etf_name="Datumtype van de bron (ISO nr. 395)" test="($publicationDate or $creationDate or $revisionDate)">Datumtype van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datumtype-van-de-bron) ontbreekt</sch:assert>
+
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting -->
 			<sch:assert id="Samenvatting_ISO_nr_25" etf_name="Samenvatting (ISO nr. 25)" test="$abstract">Samenvatting (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting) ontbreekt</sch:assert>
 			<sch:report id="Samenvatting_ISO_nr_25_info" etf_name="Samenvatting (ISO nr. 25) info" test="$abstract">Samenvatting (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#samenvatting): <sch:value-of select="$abstract"/>
@@ -424,9 +430,11 @@
 
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
-			<sch:assert id="Geografisch_gebied" etf_name="Geografisch gebied" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation)">Geografisch gebied  is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
-			<sch:report id="Geografisch_gebied_info" etf_name="Geografisch gebied info" test="($couplingType_value='tight' or $couplingType_value='mixed') and $geographicLocation">Geografisch gebied : <sch:value-of select="$geographicLocation"/>
+		<!-- Opgave Ine (28 novmeber 2018): altijd checken op omgrenzende rechthoek, ook al is dat conditioneel -->
+			<sch:assert id="Omgrenzende_rechthoek" etf_name="Omgrenzende rechthoek" test="$geographicLocation">Omgrenzende rechthoek is verplicht indien data aan de service is gekoppeld.</sch:assert>
+			<sch:report id="Omgrenzende_rechthoek_info" etf_name="Omgrenzende rechthoek info" test="$geographicLocation">Omgrenzende rechthoek: <sch:value-of select="$geographicLocation"/>
 			</sch:report>
+
 			<sch:assert id="Minimum_x-coordinaat_ISO_nr_344" etf_name="Minimum x-coordinaat (ISO nr. 344)"  test="(-180.00 &lt; $west) and ( $west &lt; 180.00) or ( $west = 0.00 ) or ( $west = -180.00 ) or ( $west = 180.00 )">Minimum x-coördinaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek) ontbreekt of heeft een verkeerde waarde</sch:assert>
 			<sch:report id="Minimum_x-coordinaat_ISO_nr_344_info" etf_name="Minimum x-coordinaat (ISO nr. 344) info" test="(-180.00 &lt; $west) and ( $west &lt; 180.00) or ( $west = 0.00 ) or ( $west = -180.00 ) or ( $west = 180.00 )">Minimum x-coördinaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek): <sch:value-of select="$west"/>
 			</sch:report>
@@ -638,10 +646,11 @@
 			<sch:report id="Code_referentiesysteem_ISO_nr_207_info" etf_name="Code referentiesysteem (ISO nr. 207) info" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem): <sch:value-of select="$referenceSystemInfo_CodeString"/> <sch:value-of select="$referenceSystemInfo_CodeURI"/>
 			</sch:report>
 
+
 		</sch:rule>
 
 		<!-- eind INSPIRE SDS Referentiesysteem  -->
-
+		<!-- TODO: make modular? -->
         		<!-- Controlled originating vocabulary -->
 				<sch:rule id="Thesaurus" etf_name="Thesaurus" context="//gmd:MD_Metadata/gmd:identificationInfo/*/gmd:descriptiveKeywords/*/gmd:thesaurusName/gmd:CI_Citation">
 
@@ -652,6 +661,7 @@
 
 					<sch:let name="thesaurus_TitleString" value="normalize-space(gmd:title/gco:CharacterString)"/>
 					<sch:let name="thesaurus_TitleURI" value="normalize-space(gmd:title/gmx:Anchor/@xlink:href)"/>
+					<sch:let name="thesaurus_TitleProvided" value="string-length($thesaurus_TitleString) > 0 or string-length($thesaurus_TitleURI) > 0 "/>
 
 					<!-- 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum -->
 					<sch:let name="thesaurus_publicationDateString" value="string(gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
@@ -668,6 +678,7 @@
 					 <sch:report id="INSPIRE_Thesaurus_title_ISO_nr_360_info" etf_name="INSPIRE Thesaurus title (ISO nr. 360) info" test="$thesaurus_Title">Thesaurus title (ISO nr. 360) is: <sch:value-of select="$thesaurus_Title"/></sch:report>
 					-->
 		        	<!-- Eind Thesaurus titel alleen voor INSPIRE-->
+					<sch:assert id="Thesaurus_titel" etf_name="Thesaurus titel is opgegeven" test="$thesaurus_TitleProvided">De Thesaurus titel is niet ingevuld (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurus)</sch:assert>
 
 		        	<!-- Thesaurus datum en datumtype 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum en
 					 5.2.16 Thesaurusdatum type https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum-type -->
