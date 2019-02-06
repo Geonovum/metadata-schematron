@@ -153,7 +153,7 @@
 
 		<!-- 5.2.4 Unieke Identifier van de bron, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron -->
 			<sch:let name="identifierString" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code[./gco:CharacterString or ./gmx:Anchor]/*)"/>
-			<!-- TODO: Het gebuik van een URI is conditioneel, het is verplicht voor INSPIRE datasets? -> nog inbouwen om te detecteren of het INSPIRE data betreft of doen we dat net als met de oude versie van het profiel in een aparte validator?
+			<!-- Het gebuik van een URI is conditioneel, het is verplicht voor INSPIRE datasets? -> nog inbouwen om te detecteren of het INSPIRE data betreft of doen we dat net als met de oude versie van het profiel in een aparte validator?
 		 	-->
 			<sch:let name="identifierURI" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code/gmx:Anchor/@xlink:href)"/>
 
@@ -180,14 +180,7 @@
 			<sch:let name="useLimitation" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[1]/gmd:MD_Constraints/gmd:useLimitation[1]/gco:CharacterString)"/>
 
 			<!-- Overige beperkingen https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#overige-beperkingen -->
-			<!-- TODO: Anchor:
-				voor elk domein een aparte let-constructie?
-				DataLicenties, xlink:href="https://creativecommons.org/publicdomain/mark/*/deed.nl"
-				ConditionsApplyingToAccessAndUse, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply" -> NB: Voor INSPIRE is het gebruik van een Anchor verplicht.
-				LimitationsOnPublicAccess, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"
-				-> NB: Voor INSPIRE is het gebruik van een Anchor verplicht.
-		 	-->
-	 		<!-- Tests of een waarde of label is opgegeven
+			<!-- Tests of een waarde of label is opgegeven
 			Bij Anchors: of het element ook een xlink:href heeft
 			-->
 			<sch:let name="otherConstraint1" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[1][gco:CharacterString or gmx:Anchor/@xlink:href]/*)"/>
@@ -199,8 +192,6 @@
 			<sch:let name="otherConstraintURI2" value="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[2]/gmx:Anchor"/>
 
 			<!-- Thijs Brentjens add the URI to the test as well -->
-			<!-- TODO: moet van de codelijst de waarde of de beschrijving gebruikt worden? Op basis van de inhoud van kolom beschrijving vermoed ik dat het die is (maar bij andere codelijsten was het juist de kolom waarde) Voor nu wel de waarde laten staan omdat hiermee onderscheid te maken is.
-			-->
 			<sch:let name="otherConstraintIsCodelistdatalicense" value="($otherConstraint1='Geen beperkingen' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/publicdomain/mark/') or contains($otherConstraint2,'://creativecommons.org/publicdomain/mark/'))) or ($otherConstraint1='Geen beperkingen' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/publicdomain/zero/') or contains($otherConstraint2,'://creativecommons.org/publicdomain/zero/'))) or ($otherConstraint1='Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by/') or contains($otherConstraint2,'://creativecommons.org/licenses/by/'))) or ($otherConstraint1='Gelijk Delen, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by-sa/') or contains($otherConstraint2,'://creativecommons.org/licenses/by-sa/'))) or ($otherConstraint1='Niet Commercieel, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by-nc/') or contains($otherConstraint2,'://creativecommons.org/licenses/by-nc/'))) or ($otherConstraint1='Niet Commercieel, Gelijk Delen, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by-nc-sa/') or contains($otherConstraint2,'://creativecommons.org/licenses/by-nc-sa/'))) or ($otherConstraint1='Geen Afgeleide Werken, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by-nd/') or contains($otherConstraint2,'://creativecommons.org/licenses/by-nd/'))) or ($otherConstraint1='Niet Commercieel, Geen Afgeleide Werken, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI1/@xlink:href,'://creativecommons.org/licenses/by-nc-nd/') or contains($otherConstraint2,'://creativecommons.org/licenses/by-nc-nd/'))) or ($otherConstraint1='Geo Gedeeld licentie' and (starts-with($otherConstraintURI1/@xlink:href,'http') or starts-with($otherConstraint2,'http')) ) or ($otherConstraint2='Geen beperkingen' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/publicdomain/mark/') or contains($otherConstraint1,'://creativecommons.org/publicdomain/mark/'))) or ($otherConstraint2='Geen beperkingen' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/publicdomain/zero/') or contains($otherConstraint1,'://creativecommons.org/publicdomain/zero/'))) or ($otherConstraint2='Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by/') or contains($otherConstraint1,'://creativecommons.org/licenses/by/')) ) or ($otherConstraint2='Gelijk Delen, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by-sa/') or contains($otherConstraint1,'://creativecommons.org/licenses/by-sa/'))) or ($otherConstraint2='Niet Commercieel, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by-nc/') or contains($otherConstraint1,'://creativecommons.org/licenses/by-nc/'))) or ($otherConstraint2='Niet Commercieel, Gelijk Delen, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by-nc-sa/') or contains($otherConstraint1,'://creativecommons.org/licenses/by-nc-sa/'))) or ($otherConstraint2='Geen Afgeleide Werken, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by-nd/') or contains($otherConstraint1,'://creativecommons.org/licenses/by-nd/'))) or ($otherConstraint2='Niet Commercieel, Geen Afgeleide Werken, Naamsvermelding verplicht, organisatienaam' and (contains($otherConstraintURI2/@xlink:href,'://creativecommons.org/licenses/by-nc-nd/') or contains($otherConstraint1,'://creativecommons.org/licenses/by-nc-nd/'))) or ($otherConstraint2='Geo Gedeeld licentie' and (starts-with($otherConstraintURI2/@xlink:href,'http') or starts-with($otherConstraint1,'http')))" />
 
 			<!-- <sch:let name="otheConstraintsHasValidDatalicenseURI" value="" /> -->
@@ -634,7 +625,6 @@
 
         	<!-- Thesaurus datum en datumtype 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum en
 			 5.2.16 Thesaurusdatum type https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type -->
-			 <!-- TODO: check if it is allowed not to provide a thesaurus title? -->
 			<sch:assert id="thesaurus_datum_ISO_nr394_en_datumtype_ISO_nr_395" etf_name="thesaurus datum (ISO nr.394) en datumtype (ISO nr. 395)" test="($thesaurus_TitleString or $thesaurus_TitleURI) and ($thesaurus_CreationDate or $thesaurus_PublicationDate or $thesaurus_RevisionDate)">Een thesaurus datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum) en datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type) is verplicht als Thesaurus title (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurus) is opgegeven. Datum formaat moet YYYY-MM-DD zijn. (Thesaurus: <sch:value-of select="$thesaurus_TitleString"/><sch:value-of select="$thesaurus_TitleURI"/>) </sch:assert>
 
 		</sch:rule>

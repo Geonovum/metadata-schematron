@@ -194,12 +194,6 @@
 		<sch:let name="useLimitation" value="normalize-space(gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_Constraints/gmd:useLimitation[1]/gco:CharacterString)"/>
 
 		<!-- Overige beperkingen https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen -->
-		<!-- TODO: Anchor:
-		  voor elk domein een aparte let-constructie?
-		  DataLicenties, xlink:href="https://creativecommons.org/publicdomain/mark/*/deed.nl"
-		  ConditionsApplyingToAccessAndUse, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply" -> NB: Voor INSPIRE is het gebruik van een Anchor verplicht.
-		  LimitationsOnPublicAccess, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"
-		-->
 		<!-- Tests of een waarde of label is opgegeven
 		Bij Anchors: of het element ook een xlink:href heeft
 		-->

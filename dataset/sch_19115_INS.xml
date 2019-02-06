@@ -183,13 +183,6 @@
 			<sch:let name="useLimitation" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[1]/gmd:MD_Constraints/gmd:useLimitation[1]/gco:CharacterString)"/>
 
 			<!-- Overige beperkingen https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#overige-beperkingen -->
-			<!-- TODO: Anchor:
-				voor elk domein een aparte let-constructie?
-				DataLicenties, xlink:href="https://creativecommons.org/publicdomain/mark/*/deed.nl"
-				ConditionsApplyingToAccessAndUse, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply" -> NB: Voor INSPIRE is het gebruik van een Anchor verplicht.
-				LimitationsOnPublicAccess, xlink:href="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"
-				-> NB: Voor INSPIRE is het gebruik van een Anchor verplicht.
-		 	-->
 	 		<!-- Tests of een waarde of label is opgegeven
 			Bij Anchors: of het element ook een xlink:href heeft
 			-->
@@ -635,7 +628,6 @@
 
         	<!-- Thesaurus datum en datumtype 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum en
 			 5.2.16 Thesaurusdatum type https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type -->
-			 <!-- TODO: check if it is allowed not to provide a thesaurus title? -->
 			<sch:assert id="thesaurus_datum_ISO_nr394_en_datumtype_ISO_nr_395" etf_name="thesaurus datum (ISO nr.394) en datumtype (ISO nr. 395)" test="($thesaurus_TitleString or $thesaurus_TitleURI) and ($thesaurus_CreationDate or $thesaurus_PublicationDate or $thesaurus_RevisionDate)">Een thesaurus datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum) en datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type) is verplicht als Thesaurus title (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurus) is opgegeven. Datum formaat moet YYYY-MM-DD zijn. (Thesaurus: <sch:value-of select="$thesaurus_TitleString"/><sch:value-of select="$thesaurus_TitleURI"/>) </sch:assert>
 
 		</sch:rule>
