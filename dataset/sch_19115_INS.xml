@@ -116,10 +116,6 @@
 			<sch:report id="Versie_metadatastandaard_ISO_nr_11_info" etf_name="Versie metadatastandaard (ISO nr. 11) info" test="$metadataStandardVersion">Versie metadatastandaard (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#metadatastandaard-versie): <sch:value-of select="$metadataStandardVersion"/>
 			</sch:report>
 
-			<!-- TB: optioneel geworden in v 2.0.0, geen test meer mogelijk -->
-			<!-- <sch:assert id="Metadata_karakterset_ISO_nr_4" etf_name="Metadata karakterset (ISO nr. 4)" test="not($metadataCharacterset) or $metadataCharacterset_value">Metadata karakterset (ISO nr. 4) ontbreekt of heeft een verkeerde waarde</sch:assert>
-			<sch:report id="Metadata_karakterset_ISO_nr_4_info" etf_name="Metadata karakterset (ISO nr. 4) info" test="not($metadataCharacterset) or $metadataCharacterset_value">Metadata karakterset (ISO nr. 4) opgegeven en voldoet</sch:report> -->
-
 		<!-- alle regels over elementen binnen gmd:identificationInfo -->
 
 		<!-- Dataset titel, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#titel-van-de-bron -->
@@ -369,33 +365,6 @@
 
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem) ontbreekt</sch:assert>
 
-		<!-- alle regels over elementen binnen distributionInfo -->
-
-			<sch:let name="distributionFormatName" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString)"/>
-			<sch:let name="distributionFormatVersion" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:version/gco:CharacterString)"/>
-			<sch:let name="distributionFormatSpecification" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:specification/gco:CharacterString)"/>
-
-		<!-- Naam distributie formaat, distributie format voor INSPIRE geharmoniseerd https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat -->
-		<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
-		<!--
-			<sch:assert id="Naam_distributie_formaat_ISO_nr_285" etf_name="Naam distributie formaat (ISO nr. 285)" test="$distributionFormatName">Naam distributie formaat (ISO nr. 285) ontbreekt</sch:assert>
-			<sch:report id="Naam_distributie_formaat_ISO_nr_285_info" etf_name="Naam distributie formaat (ISO nr. 285) info" test="$distributionFormatName">Naam distributie formaat (ISO nr. 285): <sch:value-of select="$distributionFormatName"/>
-		</sch:report> -->
-			<!-- Versie distributie formaat, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat -->
-			<!--
-			<sch:assert id="Versie_distributie_formaat_ISO_nr_286" etf_name="Versie distributie formaat (ISO nr. 286)" test="$distributionFormatVersion">Versie distributie formaat (ISO nr. 286) ontbreekt</sch:assert>
-			<sch:report id="Versie_distributie_formaat_ISO_nr_286_info" etf_name="Versie distributie formaat (ISO nr. 286) info" test="$distributionFormatVersion">Versie distributie formaat (ISO nr. 286): <sch:value-of select="$distributionFormatVersion"/>
-		</sch:report>  -->
-		<!-- Specificatie distributie formaat https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat -->
-		<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
-		<!--
-			<sch:assert id="Specificatie_distributie_formaat_ISO_nr_288" etf_name="Specificatie distributie formaat (ISO nr. 288)" test="$distributionFormatSpecification">Specificatie distributie formaat (ISO nr. 288) ontbreekt</sch:assert>
-			<sch:report id="Specificatie_distributie_formaat_ISO_nr_288_info" etf_name="Specificatie distributie formaat (ISO nr. 288) info" test="$distributionFormatSpecification">Specificatie distributie formaat (ISO nr. 288): <sch:value-of select="$distributionFormatSpecification"/>
-			</sch:report>
-		-->
-		<!-- eind distributie format voor INSPIRE geharmoniseerd -->
-
-
 	  <!-- Thijs: om fouten in de validator te voorkomen als er metadata is aangeleverd met meerdere blokken dataQualityInfo (de NGR editor kan dit soort fouten veroorzaken), gebruik altijd alleen het eerste blok. Doe dit bij alle elementen gmd:dataQualityInfo -->
 		<!-- alle regels over elementen binnen gmd:dataQualityInfo -->
 			<sch:let name="dataQualityInfo" value="gmd:dataQualityInfo[1]/gmd:DQ_DataQuality"/>
@@ -418,7 +387,7 @@
 		<!-- URL  naar een service -->
 
 		 <sch:rule id="INSPIRE_Online_toegang_tot_de_bron" etf_name="INSPIRE Online toegang tot de bron" context="//gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource">
-		<sch:let name="all_transferOptions_URL" value="ancestor::gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage"/>
+			 <sch:let name="all_transferOptions_URL" value="ancestor::gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage"/>
 
 		<!-- URL voor INSPIRE in combi met specificatie INSPIRE -->
 
@@ -551,6 +520,34 @@
 			</sch:report>
 			<sch:report id="Datum_ISO_nr_394_en_datum_type_ISO_nr_395_info" etf_name="Datum (ISO nr. 394) en datum type (ISO nr. 395) info" test="$conformity_SpecCreationDate or $conformity_SpecPublicationDate or $conformity_SpecRevisionDate">Datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum) en datum type (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum-type) zijn aanwezig voor specificatie.</sch:report> -->
 		</sch:rule>
+
+		<!-- alle regels over elementen binnen distributionInfo: alleen verplicht voor geharmoniseerde data -->
+		<sch:rule id="INSPIRE_geharmoniseerde_data_distributieformaat" etf_name="INSPIRE geharmoniseerde data distributieformaat" context="//gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format">
+			<!-- TODO: hoe bepalen of metadata over geharmoniseerde data gaat? -->
+			<!-- alle regels over elementen binnen distributionInfo -->
+				<sch:let name="distributionFormatName" value="normalize-space(gmd:name[gco:CharacterString or gmx:Anchor]/*)"/>
+				<sch:let name="distributionFormatVersion" value="normalize-space(gmd:version/gco:CharacterString)"/>
+				<!-- INSPIRE Anchor -->
+				<sch:let name="distributionFormatSpecification" value="normalize-space(gmd:specification[gco:CharacterString or gmx:Anchor]/*)"/>
+
+			<!-- Naam distributie formaat, distributie format voor INSPIRE geharmoniseerd https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat -->
+			<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
+				<sch:report id="Naam_distributie_formaat_ISO_nr_285_info" etf_name="Naam distributie formaat (ISO nr. 285) info" test="$distributionFormatName">Naam distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat): <sch:value-of select="$distributionFormatName"/>
+				</sch:report>
+				<sch:assert id="Naam_distributie_formaat_ISO_nr_285" etf_name="Naam distributie formaat (ISO nr. 285)" test="$distributionFormatName">Naam distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) ontbreekt</sch:assert>
+				<!-- Versie distributie formaat, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat -->
+				<sch:assert id="Versie_distributie_formaat_ISO_nr_286" etf_name="Versie distributie formaat (ISO nr. 286)" test="$distributionFormatVersion">Versie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat) ontbreekt</sch:assert>
+				<sch:report id="Versie_distributie_formaat_ISO_nr_286_info" etf_name="Versie distributie formaat (ISO nr. 286) info" test="$distributionFormatVersion">Versie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat): <sch:value-of select="$distributionFormatVersion"/>
+				</sch:report>
+			<!-- Specificatie distributie formaat https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat -->
+			<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
+				<sch:assert id="Specificatie_distributie_formaat_ISO_nr_288" etf_name="Specificatie distributie formaat (ISO nr. 288)" test="$distributionFormatSpecification">Specificatie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat) ontbreekt</sch:assert>
+				<sch:report id="Specificatie_distributie_formaat_ISO_nr_288_info" etf_name="Specificatie distributie formaat (ISO nr. 288) info" test="$distributionFormatSpecification">Specificatie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat): <sch:value-of select="$distributionFormatSpecification"/>
+				</sch:report>
+
+			<!-- eind distributie format voor INSPIRE geharmoniseerd -->
+		</sch:rule>
+
 
    		<!-- Resolutie en toepassingschaal -->
 		<sch:rule id="Resolutie_en_toepassingschaal" etf_name="Resolutie en toepassingschaal" context="//gmd:identificationInfo/gmd:MD_DataIdentification">
