@@ -16,10 +16,11 @@ De validatieregels van de Nederlandse profielen voor dataset (versie 1.3.x) en s
 ## Versie 2.0 van Nederlandse profielen
 **Nota bene: de validatieregels zijn nog in ontwikkeling. Gelieve deze alleen voor test of ontwikkeldoeleinden te gebruiken. Zie de branch v2.x voor deze versies**
 
+Voor INSPIRE geharmoniseerde dataset metadata is geen aparte schematron validatie meer beschikbaar. De tests voor geharmoniseerde dataset metadata zijn opgenomen in de standaar INSPIRE metadata validatieregels.
+
 ## Bestandsnamen
 Bestandsnamen moesten ingekort worden vanwege het genereren van test projecten voor het ETF (v2)
 * dataset/sch_19115.xml : Metadata profiel datasets
 * dataset/sch_19115_INS.xml : Metadata profiel datasets met INSPIRE elementen
-* dataset/sch_19115_har.xml : Metadata profiel datasets met INSPIRE elementen voor geharmoniseerde datasets
 * service/sch_19119.xml : Metadata profiel services
 * service/sch_19119_INS.xml : Metadata profiel services met INSPIRE elementen
