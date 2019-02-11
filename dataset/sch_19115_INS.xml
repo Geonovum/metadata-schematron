@@ -22,13 +22,16 @@
 		<sch:let name="thesaurus4" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[4]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="thesaurus" value="concat(string($thesaurus1),string($thesaurus2),string($thesaurus3),string($thesaurus4))"/>
 		<sch:let name="thesaurus_INSPIRE_Exsists" value="contains($thesaurus,'GEMET - INSPIRE themes, version 1.0')"/>
-		<sch:let name="conformity_Spec_Title1" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[1]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
-		<sch:let name="conformity_Spec_Title2" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[2]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
-		<sch:let name="conformity_Spec_Title3" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[3]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
-		<sch:let name="conformity_Spec_Title4" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[4]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
+		<sch:let name="conformity_Spec_Title1" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[1]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+		<sch:let name="conformity_Spec_Title2" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[2]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+		<sch:let name="conformity_Spec_Title3" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[3]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
+		<sch:let name="conformity_Spec_Title4" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[4]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="conformity_Spec_Title_All" value="concat(string($conformity_Spec_Title1),string($conformity_Spec_Title2),string($conformity_Spec_Title3),string($conformity_Spec_Title4))"/>
 		<sch:let name="conformity_Spec_Title_Exsists" value="contains($conformity_Spec_Title_All,'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens')"/>
 
+		<sch:let name="harmonised_dataset" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult[./gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString= 'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens' or ./gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor = 'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens']/gmd:pass/gco:Boolean)"/>
+
+		<sch:let name="distributonFormatName" value= "normalize-space(//gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:name[gco:CharacterString or gmx:Anchor]/*)"/>
 
 		<sch:rule id="Algemene_metadata_regels" etf_name="Algemene metadata regels"  context="/gmd:MD_Metadata">
 
@@ -169,6 +172,7 @@
 		 optioneel in v2.0.0, geen test meer
 		-->
 			<sch:let name="characterset" value="string(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:characterSet/*/@codeListValue)"/>
+
 			<sch:let name="characterset_value" value="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:characterSet/*[@codeListValue ='ucs2' or @codeListValue ='ucs4' or @codeListValue ='utf7' or @codeListValue ='utf8' or @codeListValue ='utf16' or @codeListValue ='8859part1' or @codeListValue ='8859part2' or @codeListValue ='8859part3' or @codeListValue ='8859part4' or @codeListValue ='8859part5' or @codeListValue ='8859part6' or @codeListValue ='8859part7' or @codeListValue ='8859part8' or @codeListValue ='8859part9' or @codeListValue ='8859part10' or @codeListValue ='8859part11' or  @codeListValue ='8859part12' or @codeListValue ='8859part13' or @codeListValue ='8859part14' or @codeListValue ='8859part15' or @codeListValue ='8859part16' or @codeListValue ='jis' or @codeListValue ='shiftJIS' or @codeListValue ='eucJP' or @codeListValue ='usAscii' or @codeListValue ='ebcdic' or @codeListValue ='eucKR' or @codeListValue ='big5' or @codeListValue ='GB2312']"/>
 
 		<!-- Thema's, Onderwerp https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#onderwerp
@@ -365,6 +369,8 @@
 
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem) ontbreekt</sch:assert>
 
+			<sch:assert id="Distributie_formaat_INSPIRE_harmon" etf_name="INSPIRE geharmoniseerd distributie formaat" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributonFormatName)">Voor INSPIRE geharmoniseerde data is het distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) verplicht (boolean: <sch:value-of select="$harmonised_dataset"/>).</sch:assert>
+
 	  <!-- Thijs: om fouten in de validator te voorkomen als er metadata is aangeleverd met meerdere blokken dataQualityInfo (de NGR editor kan dit soort fouten veroorzaken), gebruik altijd alleen het eerste blok. Doe dit bij alle elementen gmd:dataQualityInfo -->
 		<!-- alle regels over elementen binnen gmd:dataQualityInfo -->
 			<sch:let name="dataQualityInfo" value="gmd:dataQualityInfo[1]/gmd:DQ_DataQuality"/>
@@ -377,6 +383,7 @@
 			<sch:assert id="Algemene_beschrijving_herkomst_ISO_nr_83" etf_name="Algemene beschrijving herkomst (ISO nr. 83)" test="$statement">Algemene beschrijving herkomst (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#algemene-beschrijving-herkomst) ontbreekt</sch:assert>
 			<sch:report id="Algemene_beschrijving_herkomst_ISO_nr_83_info" etf_name="Algemene beschrijving herkomst (ISO nr. 83) info" test="$statement">Algemene beschrijving herkomst (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#algemene-beschrijving-herkomst): <sch:value-of select="$statement"/>
 			</sch:report>
+
 			<sch:assert id="Niveau_kwaliteitsbeschrijving_ISO_nr139" etf_name="Niveau kwaliteitsbeschrijving (ISO nr.139)" test="$level">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving) ontbreekt</sch:assert>
 			<sch:report id="Niveau_kwaliteitsbeschrijving_ISO_nr139_info" etf_name="Niveau kwaliteitsbeschrijving (ISO nr.139) info" test="$level">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving): <sch:value-of select="$level"/>
 			</sch:report>
@@ -392,6 +399,7 @@
 		<!-- URL voor INSPIRE in combi met specificatie INSPIRE -->
 
 		 	<sch:assert id="URL_ISO_nr_397" etf_name="URL (ISO nr. 397)" test="not($conformity_Spec_Title_Exsists) or ($conformity_Spec_Title_Exsists and $all_transferOptions_URL[normalize-space(*/text())])">URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#url) onbreekt, voor INSPIRE is de link naar de gerelateerde services (view en download) verplicht.</sch:assert>
+
 
 		<!-- eind  URL voor INSPIRE  -->
 		</sch:rule>
@@ -498,33 +506,14 @@
 
 		<!-- eind Specificatie alleen voor INSPIRE-->
 
-		<!-- Voor niet INSPIRE data als title is ingevuld, moeten date, datetype, explanation en pass ingevuld zijn -->
-
-			<!-- <sch:assert id="Verklaring_ISO_nr_131_en_Specificatie_ISO_nr_360" etf_name="Verklaring (ISO nr. 131) en Specificatie (ISO nr. 360)" test="not($conformity_SpecTitle) or ($conformity_SpecTitle and $conformity_Explanation)">Verklaring (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#verklaring) is verplicht als een specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) is opgegeven.</sch:assert>
-			<sch:assert id="Datum_ISO_nr_394_en_Specificatie_ISO_nr_360" etf_name="Datum (ISO nr. 394) en Specificatie (ISO nr. 360)" test="not($conformity_SpecTitle and not($conformity_Date))">Datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum) is verplicht als een specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) is opgegeven. </sch:assert>
-			<sch:assert id="Datumtype_ISO_nr_395__en_Specificatie_ISO_nr_360" etf_name="Datumtype (ISO nr. 395)  en Specificatie (ISO nr. 360)" test="not($conformity_SpecTitle and not($conformity_Datetype))">Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum-type) is verplicht als een specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) is opgegeven. </sch:assert>
-			<sch:assert id="Conformiteit_ISO_nr_132__en_Specificatie_ISO_nr_360" etf_name="Conformiteit (ISO nr. 132)  en Specificatie (ISO nr. 360)" test="not($conformity_SpecTitle) or ($conformity_SpecTitle and $conformity_Pass)">Conformiteit (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#conformiteit-indicatie-met-de-specificatie) is verplicht als een specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) is opgegeven.</sch:assert> -->
-
-
-		<!-- als er geen titel is ingevuld, moeten date, datetype explanation en pass leeg zijn -->
-			<!-- <sch:assert id="Verklaring_ISO_nr_131" etf_name="Verklaring (ISO nr. 131)" test="not($conformity_Explanation) or ($conformity_Explanation and $conformity_SpecTitle)">Verklaring (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#verklaring) hoort leeg te zijn als geen specificatie is opgegeven</sch:assert>
-			<sch:assert id="Datum_ISO_nr_394" etf_name="Datum (ISO nr. 394)" test="not($conformity_Date and not($conformity_SpecTitle))">Datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum) hoort leeg te zijn als geen specificatie is opgegeven. </sch:assert>
-			<sch:assert id="Datumtype_ISO_nr_395" etf_name="Datumtype (ISO nr. 395)" test="not($conformity_Datetype and not($conformity_SpecTitle))">Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum-type) hoort leeg te zijn als geen specificatie is opgegeven.</sch:assert>
-			<sch:assert id="Conformiteit_ISO_nr_132" etf_name="Conformiteit (ISO nr. 132" test="not($conformity_Pass) or ($conformity_Pass and $conformity_SpecTitle)">Conformiteit (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#conformiteit-indicatie-met-de-specificatie) hoort leeg te zijn als geen specificatie is opgegeven.</sch:assert>
-
-			<sch:report id="Verklaring_ISO_nr_131_info" etf_name="Verklaring (ISO nr. 131) info" test="$conformity_Explanation">Verklaring (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#verklaring): <sch:value-of select="$conformity_Explanation"/>
-			</sch:report>
-			<sch:report id="Conformiteitindicatie_met_de_specificatie_ISO_nr_132_info" etf_name="Conformiteitindicatie met de specificatie (ISO nr. 132) info" test="$conformity_Pass">Conformiteitindicatie met de specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#conformiteit-indicatie-met-de-specificatie): <sch:value-of select="$conformity_Pass"/>
-			</sch:report>
-			<sch:report id="Specificatie_ISO_nr_360_info" etf_name="Specificatie (ISO nr. 360) info" test="$conformity_SpecTitleString or $conformity_SpecTitleURI">Specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie): <sch:value-of select="$conformity_SpecTitleString"/><sch:value-of select="$conformity_SpecTitleURI"/>
-			</sch:report>
-			<sch:report id="Datum_ISO_nr_394_en_datum_type_ISO_nr_395_info" etf_name="Datum (ISO nr. 394) en datum type (ISO nr. 395) info" test="$conformity_SpecCreationDate or $conformity_SpecPublicationDate or $conformity_SpecRevisionDate">Datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum) en datum type (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum-type) zijn aanwezig voor specificatie.</sch:report> -->
 		</sch:rule>
 
 		<!-- alle regels over elementen binnen distributionInfo: alleen verplicht voor geharmoniseerde data -->
 		<sch:rule id="INSPIRE_geharmoniseerde_data_distributieformaat" etf_name="INSPIRE geharmoniseerde data distributieformaat" context="//gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format">
 			<!-- TODO: hoe bepalen of metadata over geharmoniseerde data gaat? -->
 			<!-- alle regels over elementen binnen distributionInfo -->
+
+			<!-- TODO: requirement dat spec_title_exists and conformity pass -->
 				<sch:let name="distributionFormatName" value="normalize-space(gmd:name[gco:CharacterString or gmx:Anchor]/*)"/>
 				<sch:let name="distributionFormatVersion" value="normalize-space(gmd:version/gco:CharacterString)"/>
 				<!-- INSPIRE Anchor -->
