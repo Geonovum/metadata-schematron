@@ -213,10 +213,13 @@
 		<sch:let name="otherConstraint2" value="normalize-space(gmd:identificationInfo/*/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[2][gco:CharacterString or gmx:Anchor/@xlink:href]/*)"/>
 
 		<sch:let name="otherConstraints" value="concat($otherConstraint1,$otherConstraint2)"/>
+		<sch:let name="otherConstraintsCharacterString" value="string-join(normalize-space(gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString), ', ')"/>
 
 		<!-- Aanname: dit is altijd het 2e blok resourceConstraints. Of beter per definitie het blok waarin NIET de codelijst http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess zit? -->
 		<sch:let name="otherConstraintURI1" value="gmd:identificationInfo/*/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[1]/gmx:Anchor"/>
 		<sch:let name="otherConstraintURI2" value="gmd:identificationInfo/*/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[2]/gmx:Anchor"/>
+
+		<sch:let name="nrMDLegalConstraints" value="count(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints)"/>
 
 		<!-- Nota bene: een ander extra blok voor de codelijst LimitationsOnPublicAccess -->
 		<sch:let name="otherConstraintURILimitationsOnPublicAccess" value="gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints[1]/gmx:Anchor[contains(@xlink:href, 'http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess')]/@xlink:href"/>
@@ -335,10 +338,10 @@
 			<sch:assert id="Juridische_toegangsrestricties_verplicht_met_'otherRestrictions'_aanwezig" etf_name="Juridische toegangsrestricties verplicht met 'otherRestrictions' aanwezig" test="$accessConstraints_value">Het element Juridische toegangsrestricties met de waarde 'otherRestrictions' is niet aanwezig, maar is wel verplicht voor INSPIRE  (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties).</sch:assert>
 
 			<!-- 5.2.17 Voor INSPIRE moet 2 maal MD_LegalConstraints aanwezig zijn -->
-			<sch:assert id="Juridische_toegangsrestricties:_het_element__MD_LegalConstraints_moet_2_maal_aanwezig_zijn" etf_name="Juridische toegangsrestricties: het element  MD_LegalConstraints moet 2 maal aanwezig zijn" test="$otherConstraint1 and $otherConstraint2">Het element MD_LegalConstraints moet 2 maal aanwezig zijn, maar is dat niet (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties).</sch:assert>
+			<sch:assert id="Juridische_toegangsrestricties:_het_element__MD_LegalConstraints_moet_2_maal_aanwezig_zijn" etf_name="Juridische toegangsrestricties: het element MD_LegalConstraints moet 2 maal aanwezig zijn" test="$nrMDLegalConstraints = 2">Het element MD_LegalConstraints moet 2 maal aanwezig zijn, maar is dat niet (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#juridische-toegangsrestricties).</sch:assert>
 
 			<!-- 5.2.18 Voor INSPIRE is het gebruik van URIs verplicht -->
-			<sch:assert id="Overige_beperkingen:_verplicht_gebruik_van_Anchors_voor_INSPIRE" etf_name="Overige beperkingen: verplicht gebruik van Anchors voor INSPIRE" test="$otherConstraintURI1 and $otherConstraintURI2">Overige beperkingen: voor INSPIRE is het verplicht om een Anchor te gebruiken met URIs, maar dat is niet het geval (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen).</sch:assert>
+			<sch:assert id="Overige_beperkingen:_verplicht_gebruik_van_Anchors_voor_INSPIRE" etf_name="Overige beperkingen: verplicht gebruik van Anchors voor INSPIRE" test="string-length($otherConstraintsCharacterString) = 0">Overige beperkingen: voor INSPIRE is het verplicht om een Anchor te gebruiken met URIs, maar dat is niet het geval (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen). De volgende waarden voor Overige beperkingen staan niet in een Anchor: <sch:value-of select="$otherConstraintsCharacterString"/>.</sch:assert>
 
 			<!-- 5.2.18 verplicht gebruik van een waarde uit LimitationsOnPublicAccess -->
 			<sch:assert id="Overige_beperkingen:_verplicht_gebruik_van_een_waarde_uit_LimitationsOnPublicAccess_voor_INSPIRE" etf_name="Overige beperkingen: verplicht gebruik van een waarde uit LimitationsOnPublicAccess voor INSPIRE" test="$otherConstraintIsLimitationsOnPublicAccess">Overige beperkingen: voor INSPIRE is het verplicht om een waarde uit de codelijst LimitationsOnPublicAccess op te nemen via een Anchor (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen en https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#Codelijst-INSPIRE-LimitationsOnPublicAccess).</sch:assert>
