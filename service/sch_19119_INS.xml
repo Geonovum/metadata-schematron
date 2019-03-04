@@ -219,7 +219,7 @@
 		<sch:let name="otherConstraintURI1" value="gmd:identificationInfo/*/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[1]/gmx:Anchor"/>
 		<sch:let name="otherConstraintURI2" value="gmd:identificationInfo/*/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[2]/gmx:Anchor"/>
 
-		<sch:let name="nrMDLegalConstraints" value="count(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints)"/>
+		<sch:let name="nrMDLegalConstraints" value="count(gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints)"/>
 
 		<!-- Nota bene: een ander extra blok voor de codelijst LimitationsOnPublicAccess -->
 		<sch:let name="otherConstraintURILimitationsOnPublicAccess" value="gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints[1]/gmx:Anchor[contains(@xlink:href, 'http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess')]/@xlink:href"/>
