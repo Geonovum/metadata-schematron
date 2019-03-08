@@ -190,7 +190,7 @@
 			<sch:let name="otherConstraint2" value="normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[2][gco:CharacterString or gmx:Anchor/@xlink:href]/*)"/>
 
 			<sch:let name="otherConstraints" value="concat($otherConstraint1,$otherConstraint2)"/>
-			<sch:let name="otherConstraintsCharacterString" value="string-join(normalize-space(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString), ', ')"/>
+			<sch:let name="otherConstraintsCharacterString" value="normalize-space(string-join(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString, ', '))"/>
 
 			<!-- Aanname: dit is altijd het 2e blok resourceConstraints. Of per definitie het blok waarin NIET de codelijst? http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess zit? -->
 			<sch:let name="otherConstraintURI1" value="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints[2]/gmd:MD_LegalConstraints/gmd:otherConstraints[1]/gmx:Anchor"/>
