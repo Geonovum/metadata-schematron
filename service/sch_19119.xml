@@ -137,7 +137,7 @@
 		 <!-- Service referentie datum -->
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron en https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-type-van-de-bron -->
 
-			<sch:let name="date" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date/*/gmd:date/gco:Date)"/>
+			<sch:let name="date" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[1]/*/gmd:date/gco:Date)"/>
 			<sch:let name="dateYear" value="((number(substring(substring-before($date,'-'),1,4)) &gt; 1000 ))"/>
 
 			<sch:let name="publicationDateString" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[./*/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
@@ -362,7 +362,7 @@
 
 		<!-- assertions and reports -->
 		<!-- dcp -->
-			<sch:assert id="DCP" etf_name="DCP" test="$dcp_value = 'WebServices'"> DCP ontbreekt  of heeft de verkeerde waarde </sch:assert>
+			<sch:assert id="DCP" etf_name="DCP" test="$dcp_value = 'WebServices' or $dcp_value = 'XML' or $dcp_value = 'CORBA' or $dcp_value = 'JAVA' or $dcp_value = 'COM' or $dcp_value = 'SQL'">DCP ontbreekt of heeft de verkeerde waarde </sch:assert>
 			<sch:report id="DCP_info" etf_name="DCP info" test="$dcp_value">DCP: <sch:value-of select="$dcp_value"/></sch:report>
 		<!-- operationName -->
 			<sch:assert id="Operatie_naam" etf_name="Operatie naam" test="$operationName">Operatie naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#operatie-naam) ontbreekt of heeft de verkeerde waarde.</sch:assert>

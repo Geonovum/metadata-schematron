@@ -143,7 +143,7 @@
 			<sch:let name="serviceTitle" value="normalize-space(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:title/gco:CharacterString)"/>
 		 <!-- Service referentie datum -->
 			<!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-van-de-bron en https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#datum-type-van-de-bron -->
-			<sch:let name="date" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date/*/gmd:date/gco:Date)"/>
+			<sch:let name="date" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[1]/*/gmd:date/gco:Date)"/>
 			<sch:let name="dateYear" value="((number(substring(substring-before($date,'-'),1,4)) &gt; 1000 ))"/>
 
 			<sch:let name="publicationDateString" value="string(gmd:identificationInfo[1]/*/gmd:citation/*/gmd:date[./*/gmd:dateType/*/@codeListValue='publication']/*/gmd:date/gco:Date)"/>
