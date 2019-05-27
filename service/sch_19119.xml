@@ -638,7 +638,7 @@
 		<!-- INSPIRE interop SDS Referentiesysteem
 		-->
 		<!-- Referentiesysteem  -->
-		<sch:rule id="Referentiesysteem" etf_name="Referentiesysteem" context="//gmd:MD_Metadata/gmd:referenceSystemInfo/*">
+		<sch:rule id="Referentiesysteem" etf_name="Referentiesysteem" context="//gmd:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem">
 			<!--  Ruimtelijk referentiesysteem  https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#codereferentiesysteem -->
 			<!-- Oud commentaar: geen RS_Identifier meer, maar alleen een MD_Identifier -->
 			<!-- N.a.v. test 21 november 2018 beide toestaan -->
