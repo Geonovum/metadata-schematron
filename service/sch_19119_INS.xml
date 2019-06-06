@@ -520,7 +520,7 @@
 			<sch:report id="Niveau_kwaliteitsbeschrijving_ISO_nr139_info" etf_name="Niveau kwaliteitsbeschrijving (ISO nr.139) info" test="$level">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#niveau-kwaliteitsbeschrijving): <sch:value-of select="$level"/>
 			</sch:report>
 
-			<sch:assert id="Niveau_kwaliteitsbeschrijving_naam" etf_name="Niveau kwaliteitsbeschrijving naam" test="$levelDescription">Niveau kwaliteitsbeschrijving naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#niveau-kwaliteitsbeschrijving-naam) ontbreekt of heeft een verkeerde waarde. Alleen 'service' is toegestaan</sch:assert>
+			<sch:assert id="Niveau_kwaliteitsbeschrijving_naam" etf_name="Niveau kwaliteitsbeschrijving naam" test="$levelDescription">Niveau kwaliteitsbeschrijving naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#niveau-kwaliteitsbeschrijving-naam) ontbreekt of heeft een verkeerde waarde.</sch:assert>
 			<sch:report id="Niveau_kwaliteitsbeschrijving_naam_info" etf_name="Niveau kwaliteitsbeschrijving naam info" test="$levelDescription">Niveau kwaliteitsbeschrijving naam (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#niveau-kwaliteitsbeschrijving-naam): <sch:value-of select="$level"/>
 			</sch:report>
 
