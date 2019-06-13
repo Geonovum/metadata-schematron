@@ -433,6 +433,7 @@
 			<sch:report id="URL_info" etf_name="URL info" test="$resourceLocatorString">URL: <sch:value-of select="$resourceLocatorString"/>
 			</sch:report>
 
+
 			<!-- URL omschrijving: controleer of die is opgegeven: als een URL is opgegeven -->
 			<sch:assert id="Omschrijving_Bij_URL" etf_name="Omschrijving bij URL" test="not($resourceLocatorString) or $transferOptions_Description_Value">De omschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omschrijving) is verplicht als er een URL is naar de service</sch:assert>
 
@@ -486,6 +487,7 @@
 		<!-- Gekoppelde bron afhankelijk van data koppeling, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron
 			Bij tight en mixed moet er een xlink opgenomen zijn
 			-->
+
 			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 
 
@@ -670,6 +672,9 @@
 		<sch:rule id="Relatie_met_de_dataset" etf_name="Relatie met de dataset" context="//gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/srv:operatesOn">
 			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Gekoppelde bron uuidref attribuut" test="string(normalize-space(@uuidref))">Gekoppelde bron heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
 			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Gekoppelde bron xlink:href attribuut" test="string(normalize-space(@xlink:href))">Gekoppelde bron heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
+
+			<sch:assert id="coupledResource_met_xlink_MD_DataIdentification" etf_name="Gekoppelde bron met xlink naar MD_DataIdentification" test="not(@xlink:href) or contains(translate(@xlink:href, $lowercase, $uppercase),' MD_DATAIDENTIFICATION')">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink naar MD_DataIdentification is verplicht.</sch:assert>
+
 		</sch:rule>
 
 		<!-- INSPIRE interop interoperabele servicekwaliteit  -->

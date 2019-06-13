@@ -432,6 +432,8 @@
 		-->
 			<sch:assert id="coupledResource_met_xlink" etf_name="coupledResource met xlink" test="not($couplingType_value='tight' or $couplingType_value='mixed') or (($couplingType_value='tight' or $couplingType_value='mixed') and $coupledResourceXlink)">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink is verplicht indien data aan de service is gekoppeld (Gekoppelde bron 'tight' of 'mixed').</sch:assert>
 
+			<sch:assert id="coupledResource_met_xlink_MD_DataIdentification" etf_name="coupledResource met xlink naar MD_DataIdentification" test="not($coupledResourceXlink) or contains(translate($coupledResourceXlink, $lowercase, $uppercase),'MD_DATAIDENTIFICATION')">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink naar MD_DataIdentification is verplicht.</sch:assert>
+
 
 		<!-- extent https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omgrenzende-rechthoek -->
 		<!-- Opgave Ine (28 novmeber 2018): altijd checken op omgrenzende rechthoek, ook al is dat conditioneel -->
