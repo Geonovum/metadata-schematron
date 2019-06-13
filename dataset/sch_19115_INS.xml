@@ -22,6 +22,7 @@
 		<sch:let name="thesaurus4" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[4]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="thesaurus" value="concat(string($thesaurus1),string($thesaurus2),string($thesaurus3),string($thesaurus4))"/>
 		<sch:let name="thesaurus_INSPIRE_Exsists" value="contains($thesaurus,'GEMET - INSPIRE themes, version 1.0')"/>
+		<sch:let name="thesaurus_INSPIRE_spatialscope_Exsists" value="contains($thesaurus,'Ruimtelijke dekking')"/>
 		<sch:let name="conformity_Spec_Title1" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[1]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="conformity_Spec_Title2" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[2]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="conformity_Spec_Title3" value="normalize-space(//gmd:MD_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality/gmd:report[3]/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
@@ -282,8 +283,9 @@
 			<sch:report id="Trefwoorden_ISO_nr_53_info" etf_name="Trefwoorden (ISO nr. 53) info" test="$keyword">Tenminste 1 trefwoord (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#trefwoord) is gevonden (<sch:value-of select="$keyword"/>)
 			</sch:report>
 
-			<!-- Thesaurus alleen voor INSPIRE-->
+			<!-- Thesaurus alleen voor INSPIRE, Ruimtelijke Dekking -->
 			<sch:assert id="Thesaurus_ISO_nr_360" etf_name="Thesaurus (ISO nr. 360)" test="$thesaurus_INSPIRE_Exsists">Thesaurus (ISO nr. 360) voor INSPIRE ontbreekt</sch:assert>
+			<sch:assert id="Thesaurus_spatialscope_ISO_nr_360" etf_name="Thesaurus spatialscope (ISO nr. 360)" test="$thesaurus_INSPIRE_spatialscope_Exsists">Thesaurus (ISO nr. 360) voor ruimtelijke dekking INSPIRE ontbreekt</sch:assert>
 			<!-- eind Thesaurus alleen voor INSPIRE-->
 
 			<!-- 5.2.4 Unieke Identifier van de bron https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron -->
@@ -670,18 +672,22 @@
 		         or (normalize-space(current())='Vervoersnetwerken')
 		         or (normalize-space(current())='Zeegebieden'))">
 Er moeten keywords uit de GEMET - INSPIRE themes thesaurus komen. Gevonden keywords: <sch:value-of select="./*[../gco:CharacterString or ../gmx:Anchor]"/></sch:assert>
+		<!--  voor externe thesaurus
+		-->
+		<!--
+		   <sch:assert id="INSPIRE_thesaurus_Trefwoorden_ISO_nr_53" etf_name="INSPIRE thesaurus Trefwoorden (ISO nr. 53)" test="$gemet-nl//skos:prefLabel[normalize-space(text()) = normalize-space(current())]">Keywords [<sch:value-of select="$gemet-nl//skos:prefLabel "/>]   moeten uit GEMET- INSPIRE themes thesaurus komen. gevonden keywords: <sch:value-of select="."/></sch:assert>
+		-->
 
 		<!--eind  Controlled originating vocabulary -  -->
+	</sch:rule>
 
+		<sch:rule id="INSPIRE_Thesaurus_spatialscope_trefwoorden" etf_name="INSPIRE Thesaurus spatialscope trefwoorden" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[normalize-space(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString) = 'Ruimtelijke dekking' or gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href ='http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/']/gmd:MD_Keywords/gmd:keyword">
 
-		 <!--  voor externe thesaurus
- 		-->
-		 <!--
-     		<sch:assert id="INSPIRE_thesaurus_Trefwoorden_ISO_nr_53" etf_name="INSPIRE thesaurus Trefwoorden (ISO nr. 53)" test="$gemet-nl//skos:prefLabel[normalize-space(text()) = normalize-space(current())]">Keywords [<sch:value-of select="$gemet-nl//skos:prefLabel "/>]   moeten uit GEMET- INSPIRE themes thesaurus komen. gevonden keywords: <sch:value-of select="."/></sch:assert>
-		 -->
+		   <!-- Controlled originating vocabulary -->
+		   <sch:let name="quote" value="&quot;'&quot;"/>
+		   <sch:assert id="INSPIRE_spatialscope_Trefwoorden_ISO_nr_53" etf_name="INSPIRE spatialscope Trefwoorden (ISO nr. 53)" test="((normalize-space(current())='Nationaal') or (normalize-space(current())='Regionaal') or (normalize-space(current())='Lokaal') )">
+		   Er moeten keywords uit de INSPIRE ruimtelijke dekking codelijst komen. Gevonden keywords: <sch:value-of select="./*[../gco:CharacterString or ../gmx:Anchor]"/></sch:assert>
 
 		</sch:rule>
-
-
 	</sch:pattern>
 </sch:schema>

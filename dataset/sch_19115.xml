@@ -229,7 +229,7 @@
 			</sch:report>
 
 			<!-- Datum van de bron en Datum type van de bron, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron en https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron-->
-			<sch:assert id="Datum_van_de_bronISO_nr_394_en_Datumtype_ISO_nr395" etf_name="Datum van de bron(ISO nr. 394) en Datumtype (ISO nr.395)" test="$publicationDate or $creationDate or $revisionDate">Datum van de bron(https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) of Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron) ontbreken of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
+			<sch:assert id="Datum_van_de_bronISO_nr_394_en_Datumtype_ISO_nr395" etf_name="Datum van de bron(ISO nr. 394) en Datumtype (ISO nr.395)" test="$publicationDate or $creationDate or $revisionDate">Datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) of Datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-type-van-de-bron) ontbreken of heeft het verkeerde formaat (YYYY-MM-DD)</sch:assert>
 			<sch:report id="Datum_van_de_bronISO_nr_394_en_Datatype_ISO_nr395_info" etf_name="Datum van de bron(ISO nr. 394) en Datatype (ISO nr.395) info" test="$publicationDate or $creationDate or $revisionDate">Tenminste 1 datum van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#datum-van-de-bron) is gevonden</sch:report>
 
 			<!-- 5.2.5 Samenvatting https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#samenvatting -->
@@ -593,7 +593,7 @@
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207_2" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem) waarde en/of URI ontbreekt</sch:assert>
 			<sch:report id="Code_referentiesysteem_ISO_nr_207_info" etf_name="Code referentiesysteem (ISO nr. 207) info" test="$referenceSystemInfo_CodeString or $referenceSystemInfo_CodeURI">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem): <sch:value-of select="$referenceSystemInfo_CodeString"/> <sch:value-of select="$referenceSystemInfo_CodeURI"/>
 			</sch:report>
-			
+
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207_is_een_URI" etf_name="Code referentiesysteem (ISO nr. 207) is een URI" test="starts-with($referenceSystemInfo_CodeString,'http') or starts-with($referenceSystemInfo_CodeURI,'http')">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem) moet een URI zijn, maar is dat niet. Opgegeven waarde: <sch:value-of select="$referenceSystemInfo_CodeString"/> <sch:value-of select="$referenceSystemInfo_CodeURI"/></sch:assert>
 
 		</sch:rule>
