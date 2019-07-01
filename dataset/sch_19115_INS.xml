@@ -289,8 +289,8 @@
 			<!-- eind Thesaurus alleen voor INSPIRE-->
 
 			<!-- 5.2.4 Unieke Identifier van de bron https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron -->
-			<sch:assert id="Unieke_Identifier_van_de_bron_ISO_nr_207" etf_name="Unieke Identifier van de bron (ISO nr. 207)" test="starts-with($identifierString, 'http')">Unieke Identifier van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron) ontbreekt. Voor INSPIRE is een URI verplicht. Opgegeven identifier: <sch:value-of select="$identifierString"/>.</sch:assert>
-			<sch:report id="Unieke_Identifier_van_de_bron_ISO_nr_207_info" etf_name="Unieke Identifier van de bron (ISO nr. 207) info" test="starts-with($identifierString, 'http')">Unieke Identifier van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron): <sch:value-of select="$identifierString"/>
+			<sch:assert id="Unieke_Identifier_van_de_bron_ISO_nr_207" etf_name="Unieke Identifier van de bron (ISO nr. 207)" test="starts-with($identifierURI, 'http')">Unieke Identifier van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron) ontbreekt. Voor INSPIRE is een URI verplicht. Opgegeven identifier: <sch:value-of select="$identifierURI"/>.</sch:assert>
+			<sch:report id="Unieke_Identifier_van_de_bron_ISO_nr_207_info" etf_name="Unieke Identifier van de bron (ISO nr. 207) info" test="starts-with($identifierURI, 'http')">Unieke Identifier van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron): <sch:value-of select="$identifierURI"/>
 			</sch:report>
 
 			<!-- conditioneel: dus niet op testen als assertion -->
@@ -374,7 +374,7 @@
 
 			<sch:assert id="Code_referentiesysteem_ISO_nr_207" etf_name="Code referentiesysteem (ISO nr. 207)" test="$referenceSystemInfo">Code referentiesysteem (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#codereferentiesysteem) ontbreekt</sch:assert>
 
-			<sch:assert id="Distributie_formaat_INSPIRE_harmon" etf_name="INSPIRE geharmoniseerd distributie formaat" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributonFormatName)">Voor INSPIRE geharmoniseerde data is het distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) verplicht (boolean: <sch:value-of select="$harmonised_dataset"/>).</sch:assert>
+			<sch:assert id="Distributie_formaat_INSPIRE_harmon" etf_name="INSPIRE geharmoniseerd distributie formaat" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributonFormatName)">Voor INSPIRE geharmoniseerde data is naam, versie en specificatie van het distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) verplicht (boolean: <sch:value-of select="$harmonised_dataset"/>).</sch:assert>
 
 	  <!-- Thijs: om fouten in de validator te voorkomen als er metadata is aangeleverd met meerdere blokken dataQualityInfo (de NGR editor kan dit soort fouten veroorzaken), gebruik altijd alleen het eerste blok. Doe dit bij alle elementen gmd:dataQualityInfo -->
 		<!-- alle regels over elementen binnen gmd:dataQualityInfo -->
@@ -528,14 +528,14 @@
 			<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
 				<sch:report id="Naam_distributie_formaat_ISO_nr_285_info" etf_name="Naam distributie formaat (ISO nr. 285) info" test="$distributionFormatName">Naam distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat): <sch:value-of select="$distributionFormatName"/>
 				</sch:report>
-				<sch:assert id="Naam_distributie_formaat_ISO_nr_285" etf_name="Naam distributie formaat (ISO nr. 285)" test="$distributionFormatName">Naam distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) ontbreekt</sch:assert>
+			<sch:assert id="Naam_distributie_formaat_ISO_nr_285" etf_name="Naam distributie formaat (ISO nr. 285)" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributionFormatName)">Naam distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) ontbreekt</sch:assert>
 				<!-- Versie distributie formaat, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat -->
-				<sch:assert id="Versie_distributie_formaat_ISO_nr_286" etf_name="Versie distributie formaat (ISO nr. 286)" test="$distributionFormatVersion">Versie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat) ontbreekt</sch:assert>
+			<sch:assert id="Versie_distributie_formaat_ISO_nr_286" etf_name="Versie distributie formaat (ISO nr. 286)" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributionFormatVersion)">Versie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat) ontbreekt</sch:assert>
 				<sch:report id="Versie_distributie_formaat_ISO_nr_286_info" etf_name="Versie distributie formaat (ISO nr. 286) info" test="$distributionFormatVersion">Versie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat): <sch:value-of select="$distributionFormatVersion"/>
 				</sch:report>
 			<!-- Specificatie distributie formaat https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat -->
 			<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
-				<sch:assert id="Specificatie_distributie_formaat_ISO_nr_288" etf_name="Specificatie distributie formaat (ISO nr. 288)" test="$distributionFormatSpecification">Specificatie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat) ontbreekt</sch:assert>
+			<sch:assert id="Specificatie_distributie_formaat_ISO_nr_288" etf_name="Specificatie distributie formaat (ISO nr. 288)" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributionFormatSpecification)">Specificatie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat) ontbreekt</sch:assert>
 				<sch:report id="Specificatie_distributie_formaat_ISO_nr_288_info" etf_name="Specificatie distributie formaat (ISO nr. 288) info" test="$distributionFormatSpecification">Specificatie distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat): <sch:value-of select="$distributionFormatSpecification"/>
 				</sch:report>
 
