@@ -165,7 +165,7 @@
 
  		<!-- Verantwoordelijke organisatie bron rol, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#verantwoordelijke-organisatie-bron:-rol -->
  			<sch:let name="responsibleParty_Role" value="gmd:identificationInfo/*/gmd:pointOfContact[1]/gmd:CI_ResponsibleParty/gmd:role/*[@codeListValue = 'resourceProvider' or @codeListValue = 'custodian' or @codeListValue = 'owner' or @codeListValue = 'user' or @codeListValue = 'distributor' or @codeListValue = 'owner' or @codeListValue = 'originator' or @codeListValue = 'pointOfContact' or @codeListValue = 'principalInvestigator' or @codeListValue = 'processor' or @codeListValue = 'publisher' or @codeListValue = 'author']"/>
-<!-- opm Ine TO DO volledige codelijst hieronder toevoegen --> 
+<!-- opm Ine TO DO volledige codelijst hieronder toevoegen -->
 		 <!-- Trefwoorden  voor INSPIRE -->
 			<sch:let name="keyword_INSPIRE" value="normalize-space((gmd:identificationInfo[1]/*/gmd:descriptiveKeywords/*/gmd:keyword[1][gco:CharacterString or gmx:Anchor]/*
 			[text() = 'infoFeatureAccessService'
@@ -671,7 +671,7 @@
 			<!-- <sch:assert id="Coupled_resource_uuidref_attribuut" etf_name="Gekoppelde bron uuidref attribuut" test="string(normalize-space(@uuidref))">Gekoppelde bron heeft geen uuidref attribuut bij het element operatesOn </sch:assert> -->
 			<sch:assert id="Coupled_resource_xlink:href_attribuut" etf_name="Gekoppelde bron xlink:href attribuut" test="string(normalize-space(@xlink:href))">Gekoppelde bron heeft geen xlink:href attribuut bij het element operatesOn</sch:assert>
 
-		    <sch:assert id="coupledResource_met_xlink_MD_DataIdentification" etf_name="Gekoppelde bron met xlink naar MD_DataIdentification" test="not(@xlink:href) or (@xlink:href and contains(translate(@xlink:href, $lowercase, $uppercase),' MD_DATAIDENTIFICATION'))">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink naar MD_DataIdentification is verplicht.</sch:assert>
+		    <sch:assert id="coupledResource_met_xlink_MD_DataIdentification" etf_name="Gekoppelde bron met xlink naar MD_DataIdentification" test="not(@xlink:href) or (@xlink:href and contains(translate(@xlink:href, $lowercase, $uppercase), 'MD_DATAIDENTIFICATION'))">Gekoppelde bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gekoppelde-bron) met xlink naar MD_DataIdentification is verplicht.</sch:assert>
 
 		</sch:rule>
 
@@ -857,4 +857,3 @@ Deze keywords komen niet overeen met GEMET- INSPIRE themes thesaurus. gevonden k
 
 	</sch:pattern>
 </sch:schema>
-
