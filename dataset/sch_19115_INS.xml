@@ -376,6 +376,8 @@
 
 			<sch:assert id="Distributie_formaat_INSPIRE_harmon" etf_name="INSPIRE geharmoniseerd distributie formaat" test="not($harmonised_dataset='true') or ($harmonised_dataset='true' and $distributonFormatName)">Voor INSPIRE geharmoniseerde data is naam, versie en specificatie van het distributie formaat (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat) verplicht (boolean: <sch:value-of select="$harmonised_dataset"/>).</sch:assert>
 
+
+
 	  <!-- Thijs: om fouten in de validator te voorkomen als er metadata is aangeleverd met meerdere blokken dataQualityInfo (de NGR editor kan dit soort fouten veroorzaken), gebruik altijd alleen het eerste blok. Doe dit bij alle elementen gmd:dataQualityInfo -->
 		<!-- alle regels over elementen binnen gmd:dataQualityInfo -->
 			<sch:let name="dataQualityInfo" value="gmd:dataQualityInfo[1]/gmd:DQ_DataQuality"/>
@@ -392,6 +394,9 @@
 			<sch:assert id="Niveau_kwaliteitsbeschrijving_ISO_nr139" etf_name="Niveau kwaliteitsbeschrijving (ISO nr.139)" test="$level">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving) ontbreekt</sch:assert>
 			<sch:report id="Niveau_kwaliteitsbeschrijving_ISO_nr139_info" etf_name="Niveau kwaliteitsbeschrijving (ISO nr.139) info" test="$level">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving): <sch:value-of select="$level"/>
 			</sch:report>
+
+
+			<sch:assert id="INSPIRE_verordening" etf_name="INSPIRE Verordening" test="$conformity_Spec_Title_Exsists">Specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) mist de verplichte waarde voor INSPIRE datasets. Voor INSPIRE datasets in specificatie opnemen: VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens</sch:assert>
 
 		</sch:rule>
 
@@ -482,6 +487,7 @@
 			<sch:let name="conformity_SpecTitle" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title[./gco:CharacterString or ./gmx:Anchor]/*)"/>
 			<sch:let name="conformity_SpecTitleString" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString)"/>
 			<sch:let name="conformity_SpecTitleURI" value="normalize-space(gmd:specification/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href)"/>
+
 		<!-- Verklaring https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#verklaring -->
 			<sch:let name="conformity_Explanation" value="normalize-space(gmd:explanation/gco:CharacterString)"/>
 
@@ -502,6 +508,7 @@
 		<!-- Specificatie alleen voor INSPIRE-->
 		<!-- 5.2.35 Specificatie is vereist: https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie
 		Voor INSPIRE altijd vereist, dus voorbehoud van de thesaurus weglaten. -->
+
 			<sch:assert id="INSPIRE_Specificatie_ISO_nr_360" etf_name="INSPIRE Specificatie (ISO nr. 360)" test="$conformity_SpecTitle">Specificatie (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie) mist de verplichte waarde voor INSPIRE datasets. Voor INSPIRE datasets in specificatie opnemen: VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens</sch:assert>
 
 			<sch:assert id="INSPIRE_Verklaring_ISO_nr_131" etf_name="INSPIRE Verklaring (ISO nr. 131)" test="$conformity_Explanation">Verklaring (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#verklaring) ontbreekt.</sch:assert>
