@@ -285,7 +285,7 @@
 
 			<!-- Thesaurus alleen voor INSPIRE, Ruimtelijke Dekking -->
 			<sch:assert id="Thesaurus_ISO_nr_360" etf_name="Thesaurus (ISO nr. 360)" test="$thesaurus_INSPIRE_Exsists">Thesaurus (ISO nr. 360) voor INSPIRE ontbreekt</sch:assert>
-			<sch:assert id="Thesaurus_spatialscope_ISO_nr_360" etf_name="Thesaurus spatialscope (ISO nr. 360)" test="$thesaurus_INSPIRE_spatialscope_Exsists">Thesaurus (ISO nr. 360) voor ruimtelijke dekking INSPIRE ontbreekt</sch:assert>
+			<sch:assert id="Thesaurus_spatialscope_ISO_nr_360" etf_name="Thesaurus spatialscope (ISO nr. 360)" test="$thesaurus_INSPIRE_spatialscope_Exsists">Thesaurus (ISO nr. 360) voor ruimtelijke dekking INSPIRE ontbreekt. Zie de invulinstructie voor Trefwoorden over ruimtelijke dekking op de INSPIRE wiki https://wiki.geonovum.nl/index.php?title=Invulinstructie voor meer informatie.</sch:assert>
 			<!-- eind Thesaurus alleen voor INSPIRE-->
 
 			<!-- 5.2.4 Unieke Identifier van de bron https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron -->
