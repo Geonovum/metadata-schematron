@@ -40,16 +40,6 @@
 
 		<sch:rule id="Algemene_metadata_regels" etf_name="Algemene metadata regels" context="/gmd:MD_Metadata">
 
-		<!-- schemalocatie controleren, overeenkomstig inspire en nl profiel
-			<sch:assert id="Schema_locatie" etf_name="Schema locatie" test="contains(normalize-space(@xsi:schemaLocation), 'http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd')">Het ISO 19139 XML document mist een verplichte schema locatie. De schema locatie http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd moet aanwezig zijn.
-			</sch:assert>
-			<sch:report id="Schema_locatie_info" etf_name="Schema locatie info" test="contains(normalize-space(@xsi:schemaLocation), 'http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd')">Het ISO 19139 XML document bevat de schema locatie http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd
-			</sch:report>
--->
-			<sch:assert id="Schema_locatie_service_metadata" etf_name="Schema locatie service metadata" test="contains(normalize-space(@xsi:schemaLocation), 'http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd')">Het ISO 19139 XML document mist een verplichte schema locatie. De schema locatie met namespace http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd moet aanwezig zijn. Zie https://www.pdok.nl/nl/ngr/faq#schemalocatie
-		    	</sch:assert>
-			<sch:report id="Schema_locatie_service_metadata_info" etf_name="Schema locatie service metadata info" test="contains(normalize-space(@xsi:schemaLocation), 'http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd')">Het ISO 19139 XML document bevat de schema locatie met namespace http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
-			</sch:report>
 		<!--  fileIdentifier -->
 			<sch:let name="fileIdentifier" value="normalize-space(gmd:fileIdentifier/gco:CharacterString)"/>
        	<!-- Metadata taal

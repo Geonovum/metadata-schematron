@@ -36,13 +36,6 @@
 
 		<sch:rule id="Algemene_metadata_regels" etf_name="Algemene metadata regels"  context="/gmd:MD_Metadata">
 
-		<!-- schemalocatie controleren, overeenkomstig inspire en nl profiel -->
-
-			<sch:assert id="Schema_locatie" etf_name="Schema locatie" test="contains(normalize-space(@xsi:schemaLocation), 'http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd')">Het ISO 19139 XML document mist een verplichte schema locatie. De schema locatie http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd moet aanwezig zijn.
-			</sch:assert>
-			<sch:report id="Schema_locatie_info" etf_name="Schema locatie info" test="contains(normalize-space(@xsi:schemaLocation), 'http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd')">Het ISO 19139 XML document bevat de schema locatie http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd
-			</sch:report>
-
 		<!--  fileIdentifier for report https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#metadata-unieke-identifier -->
 			<sch:let name="fileIdentifier" value="normalize-space(gmd:fileIdentifier/gco:CharacterString)"/>
             		<!-- Taal van de metadata https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#taal-van-de-metadata
