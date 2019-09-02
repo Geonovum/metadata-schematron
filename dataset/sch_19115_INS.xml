@@ -683,13 +683,16 @@ Er moeten keywords uit de GEMET - INSPIRE themes thesaurus komen. Gevonden keywo
 		<!--eind  Controlled originating vocabulary -  -->
 	</sch:rule>
 
-		<sch:rule id="INSPIRE_Thesaurus_spatialscope_trefwoorden" etf_name="INSPIRE Thesaurus spatialscope trefwoorden" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[normalize-space(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString) = 'Ruimtelijke dekking' or gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href ='http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/']/gmd:MD_Keywords/gmd:keyword">
+		<!-- 2019-09-02 : voer deze rule ook uit als alleen het label van het Anchor Ruimtelijke dekking is. En test of label en URI overeenkomen bij een Anchor -->
+		<sch:rule id="INSPIRE_Thesaurus_spatialscope_trefwoorden" etf_name="INSPIRE Thesaurus spatialscope trefwoorden" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[normalize-space(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString) = 'Ruimtelijke dekking' or normalize-space(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor) = 'Ruimtelijke dekking' or gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href ='http://inspire.ec.europa.eu/metadata-codelist/SpatialScope']/gmd:MD_Keywords/gmd:keyword">
 
 		   <!-- Controlled originating vocabulary -->
 		   <sch:let name="quote" value="&quot;'&quot;"/>
 		   <sch:assert id="INSPIRE_spatialscope_Trefwoorden_ISO_nr_53" etf_name="INSPIRE spatialscope Trefwoorden (ISO nr. 53)" test="((normalize-space(current())='Nationaal') or (normalize-space(current())='Regionaal') or (normalize-space(current())='Lokaal') )">
 		   Er moeten keywords uit de INSPIRE ruimtelijke dekking codelijst komen. Gevonden keywords: <sch:value-of select="./*[../gco:CharacterString or ../gmx:Anchor]"/></sch:assert>
 
+		   <sch:assert id="INSPIRE_spatialscope_Trefwoorden_ISO_nr_53_Anchor" etf_name="INSPIRE spatialscope Anchor correct" test="( normalize-space(../../gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString)='Ruimtelijke dekking' or ( normalize-space(../../gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor)='Ruimtelijke dekking' and ../../gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href='http://inspire.ec.europa.eu/metadata-codelist/SpatialScope' ))">
+		   Als de Thesaurus voor ruimtelijke dekking wordt opgegeven via een Anchor, moet de URI van het Anchor http://inspire.ec.europa.eu/metadata-codelist/SpatialScope zijn en het label Ruimtelijke dekking. Dit is niet het geval. Opgegeven URI: <sch:value-of select="../../gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor/@xlink:href"/> , opgegeven label: <sch:value-of select="../../gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gmx:Anchor"/> </sch:assert>
 		</sch:rule>
 
 
