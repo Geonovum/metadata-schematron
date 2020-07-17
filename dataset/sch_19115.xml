@@ -158,7 +158,7 @@
 
 		<!-- Taal van de bron, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#taal-van-de-bron -->
 			<sch:let name="language" value="(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language/*/@codeListValue = 'dut' or gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language/*/@codeListValue = 'eng')"/>
-            <sch:let name="language_value" value="string(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language/*/@codeListValue)"/>
+      <sch:let name="language_value" value="string(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language/*/@codeListValue)"/>
 
 		<!-- Dataset karakterset, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#karakterset-van-de-bron:
 		 optioneel in v2.0.0, geen test meer
@@ -273,9 +273,8 @@
 		    <sch:report id="Unieke_Identifier_van_de_bron_ISO_nr_207_URI_info" etf_name="Unieke Identifier van de bron (ISO nr. 207) info" test="$identifierURI">Unieke Identifier van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#unieke-identifier-van-de-bron): <sch:value-of select="$identifierURI"/>.
 		    </sch:report>
 
-			<!-- conditioneel: dus niet op testen als assertion -->
-			<sch:report id="Dataset_taal_ISO_nr_39_info" etf_name="Dataset taal (ISO nr. 39) info" test="$language">Dataset taal (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#taal-van-de-bron): <sch:value-of select="$language"/>
-			</sch:report>
+			<!-- v.2.1.0: taal van de bron is verplicht geworden: dus niet op testen als assertion -->
+			<sch:assert id="Taal_van_de_bron_ISO_nr_39" etf_name="Taal van de bron (ISO nr. 39)" test="$language">Taal van de bron (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#taal-van-de-bron) is verplicht, maar ontbreekt of heeft een verkeerde waarde. Dit hoort een waarde en verwijzing naar de codelijst te zijn.</sch:assert>
 
 			<!-- 5.2.8 Karakterset van de bron: conditioneel geworden. Geen assertion meer, bevestigd door Ine. https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#karakterset-van-de-bron -->
 			<!-- <sch:assert id="Dataset_karakterset_ISO_nr_40" etf_name="Dataset karakterset (ISO nr. 40)" test="not($characterset) or $characterset_value">Dataset karakterset (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#karakterset-van-de-bron) ontbreekt of heeft een verkeerde waarde</sch:assert>
@@ -668,7 +667,7 @@ Deze keywords moeten uit GEMET- INSPIRE themes thesaurus komen. Gevonden keyword
 			<!-- section 6.2 https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking -->
 			<sch:let name="timePeriodBegin" value="gml:TimePeriod/gml:beginPosition"/>
 			<sch:let name="timePosition" value="gml:TimeInstant/gml:timePosition"/>
-			<sch:assert id="Temporele_dekking_period_of_position" etf_name="Temporele dekking is een periode of individuele datum" test="$timePeriodBegin or $timePosition">De Temporele dekking is opgegeven. Er moet dan een tijdsperiode of individuele datum worden opgegeven conform https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking, maar dat is niet het geval.</sch:assert>			
+			<sch:assert id="Temporele_dekking_period_of_position" etf_name="Temporele dekking is een periode of individuele datum" test="$timePeriodBegin or $timePosition">De Temporele dekking is opgegeven. Er moet dan een tijdsperiode of individuele datum worden opgegeven conform https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking, maar dat is niet het geval.</sch:assert>
 		</sch:rule>
 	</sch:pattern>
 </sch:schema>
