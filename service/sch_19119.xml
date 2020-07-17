@@ -451,6 +451,14 @@
 			<sch:let name="dataQualityInfo" value="gmd:dataQualityInfo/gmd:DQ_DataQuality"/>
 			<sch:let name="level" value="string($dataQualityInfo/gmd:scope/gmd:DQ_Scope/gmd:level/*/@codeListValue[. = 'service'])"/>
 
+
+			<sch:let name="dataQualityInfoCount" value="count(gmd:dataQualityInfo)" />
+			<sch:assert id="dataQualityInfo_1_keer" etf_name="Kwaliteitsbeschrijving 1 keer" test="$dataQualityInfoCount &lt; 2">Set elementen kwaliteitsbeschrijving komt maximaal 1 keer voor</sch:assert>
+
+			<sch:let name="levelCount" value="count($dataQualityInfo/gmd:scope/gmd:DQ_Scope/gmd:level)" />
+			<sch:assert id="level_1_keer" etf_name="Niveau kwaliteitsbeschrijving 1 keer" test="$levelCount &lt; 2">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#niveau-kwaliteitsbeschrijving) komt vaker dan 1 keer voor</sch:assert>
+
+
 			<!-- TODO: check xpath in respec doc: lijkt niet te kloppen. Klopt dit onderstaande pad wel? Met namespaces etc? -->
 			<sch:let name="levelDescription" value="string($dataQualityInfo/gmd:scope/gmd:DQ_Scope/gmd:levelDescription/*/gmd:other)"/>
 

@@ -343,32 +343,17 @@
 			<sch:let name="distributionFormatVersion" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:version/gco:CharacterString)"/>
 			<sch:let name="distributionFormatSpecification" value="normalize-space(gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:specification/gco:CharacterString)"/>
 
-		<!-- Naam distributie formaat, distributie format voor INSPIRE geharmoniseerd https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#naam-distributie-formaat -->
-		<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
-		<!--
-			<sch:assert id="Naam_distributie_formaat_ISO_nr_285" etf_name="Naam distributie formaat (ISO nr. 285)" test="$distributionFormatName">Naam distributie formaat (ISO nr. 285) ontbreekt</sch:assert>
-			<sch:report id="Naam_distributie_formaat_ISO_nr_285_info" etf_name="Naam distributie formaat (ISO nr. 285) info" test="$distributionFormatName">Naam distributie formaat (ISO nr. 285): <sch:value-of select="$distributionFormatName"/>
-		</sch:report> -->
-			<!-- Versie distributie formaat, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#versie-distributie-formaat -->
-			<!--
-			<sch:assert id="Versie_distributie_formaat_ISO_nr_286" etf_name="Versie distributie formaat (ISO nr. 286)" test="$distributionFormatVersion">Versie distributie formaat (ISO nr. 286) ontbreekt</sch:assert>
-			<sch:report id="Versie_distributie_formaat_ISO_nr_286_info" etf_name="Versie distributie formaat (ISO nr. 286) info" test="$distributionFormatVersion">Versie distributie formaat (ISO nr. 286): <sch:value-of select="$distributionFormatVersion"/>
-		</sch:report>  -->
-		<!-- Specificatie distributie formaat https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatie-distributie-formaat -->
-		<!-- Anchor, maar alleen voor INSPIRE geharmoniseerd verplicht  -->
-		<!--
-			<sch:assert id="Specificatie_distributie_formaat_ISO_nr_288" etf_name="Specificatie distributie formaat (ISO nr. 288)" test="$distributionFormatSpecification">Specificatie distributie formaat (ISO nr. 288) ontbreekt</sch:assert>
-			<sch:report id="Specificatie_distributie_formaat_ISO_nr_288_info" etf_name="Specificatie distributie formaat (ISO nr. 288) info" test="$distributionFormatSpecification">Specificatie distributie formaat (ISO nr. 288): <sch:value-of select="$distributionFormatSpecification"/>
-			</sch:report>
-		-->
-		<!-- eind distributie format voor INSPIRE geharmoniseerd -->
-
-
 	  <!-- Thijs: om fouten in de validator te voorkomen als er metadata is aangeleverd met meerdere blokken dataQualityInfo (de NGR editor kan dit soort fouten veroorzaken), gebruik altijd alleen het eerste blok. Doe dit bij alle elementen gmd:dataQualityInfo -->
 		<!-- alle regels over elementen binnen gmd:dataQualityInfo -->
 			<sch:let name="dataQualityInfo" value="gmd:dataQualityInfo[1]/gmd:DQ_DataQuality"/>
 		<!-- Algemene beschrijving herkomst, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#algemene-beschrijving-herkomst  -->
 			<sch:let name="statement" value="normalize-space($dataQualityInfo/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString)"/>
+
+			<sch:let name="dataQualityInfoCount" value="count(gmd:dataQualityInfo)" />
+			<sch:assert id="dataQualityInfo_1_keer" etf_name="Kwaliteitsbeschrijving 1 keer" test="$dataQualityInfoCount &lt; 2">Set elementen kwaliteitsbeschrijving komt maximaal 1 keer voor</sch:assert>
+
+			<sch:let name="levelCount" value="count($dataQualityInfo/gmd:scope/gmd:DQ_Scope/gmd:level)" />
+			<sch:assert id="level_1_keer" etf_name="Niveau kwaliteitsbeschrijving 1 keer" test="$levelCount &lt; 2">Niveau kwaliteitsbeschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving) komt vaker dan 1 keer voor</sch:assert>
 
 		<!--  Niveau kwaliteitsbeschrijving, https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#niveau-kwaliteitsbeschrijving -->
 			<sch:let name="level" value="string($dataQualityInfo/gmd:scope/gmd:DQ_Scope/gmd:level/*/@codeListValue[. = 'dataset' or . = 'series'])"/>
@@ -538,18 +523,6 @@
 			</sch:report>
 			<sch:report id="Datum_ISO_nr_394_en_datum_type_ISO_nr_395_info" etf_name="Datum (ISO nr. 394) en datum type (ISO nr. 395) info" test="$conformity_SpecCreationDate or $conformity_SpecPublicationDate or $conformity_SpecRevisionDate">Datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum) en datum type (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#specificatiedatum-type) zijn aanwezig voor specificatie.</sch:report>
 		</sch:rule>
-
-		<!-- INSPIRE specification titel -->
-		<!--
-			<sch:rule id="INSPIRE_specificaties" etf_name="INSPIRE specificaties" context="//gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation">
-		    <sch:let name="all_conformity_Spec_Titles" value="ancestor::gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title"/>
-			<sch:let name="INSPIRE_conformity_Spec_Title" value="normalize-space(gmd:title/gco:CharacterString)"/>
-				<sch:assert id="INSPIRE_Specificatie_ISO_nr_360_titel" etf_name="INSPIRE Specificatie (ISO nr. 360) titel" test="$all_conformity_Spec_Titles[normalize-space(gco:CharacterString/text()) =  'VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens']">Specificatie (ISO nr. 360) verwijst niet naar de VERORDENING (EU) Nr. 1089/2010 VAN DE COMMISSIE van 23 november 2010 ter uitvoering van Richtlijn 2007/2/EG van het Europees Parlement en de Raad betreffende de interoperabiliteit van verzamelingen ruimtelijke gegevens en van diensten met betrekking tot ruimtelijke gegevens</sch:assert>
-				<sch:report id="INSPIRE_Specificatie_ISO_nr_360_titel_info" etf_name="INSPIRE Specificatie (ISO nr. 360) titel info" test="$INSPIRE_conformity_Spec_Title">Specificatie titel (ISO nr. 360) is: <sch:value-of select="$INSPIRE_conformity_Spec_Title"/></sch:report>
-			</sch:rule>
-		-->
-		<!-- eind  INSPIRE specification titel -->
-
 
    		<!-- Resolutie en toepassingschaal -->
 		<sch:rule id="Resolutie_en_toepassingschaal" etf_name="Resolutie en toepassingschaal" context="//gmd:identificationInfo/gmd:MD_DataIdentification">
