@@ -664,5 +664,11 @@ Deze keywords moeten uit GEMET- INSPIRE themes thesaurus komen. Gevonden keyword
 
 		</sch:rule>
 
+		<sch:rule id="Temporele_dekking" etf_name="Temporele dekking" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
+			<!-- section 6.2 https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking -->
+			<sch:let name="timePeriodBegin" value="gml:TimePeriod/gml:beginPosition"/>
+			<sch:let name="timePosition" value="gml:TimeInstant/gml:timePosition"/>
+			<sch:assert id="Temporele_dekking_period_of_position" etf_name="Temporele dekking is een periode of individuele datum" test="$timePeriodBegin or $timePosition">De Temporele dekking is opgegeven. Er moet dan een tijdsperiode of individuele datum worden opgegeven conform https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking, maar dat is niet het geval.</sch:assert>			
+		</sch:rule>
 	</sch:pattern>
 </sch:schema>
