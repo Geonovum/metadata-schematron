@@ -13,8 +13,8 @@
 	<sch:let name="gemet-nl" value="document('GEMET-InspireThemes-nl.rdf')"/>
 	-->
 
-	<sch:pattern id="Validatie tegen het Nederlands metadata profiel op ISO 19115 versie 2">
-		<sch:title>Validatie tegen het Nederlands profiel op ISO 19115 voor geografie versie 2.0.0 (2017)</sch:title>
+	<sch:pattern id="Validatie tegen het Nederlands metadata profiel op ISO 19115 versie 2.1.0">
+		<sch:title>Validatie tegen het Nederlands metadata profiel op ISO 19115 voor geografie versie 2.1.0 (2020)</sch:title>
 		<!-- INSPIRE Thesaurus en Conformiteit-->
 		<sch:let name="thesaurus1" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[1]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="thesaurus2" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords[2]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
@@ -593,17 +593,17 @@
 			<sch:let name="thesaurus_CreationDate" value="((number(substring(substring-before($thesaurus_creationDateString,'-'),1,4)) &gt; 1000 ))"/>
 			<sch:let name="thesaurus_RevisionDate" value="((number(substring(substring-before($thesaurus_revisionDateString,'-'),1,4)) &gt; 1000 ))"/>
 
-            <!-- Thesaurus titel alleen voor INSPIRE -->
-			<!--
-			<sch:assert id="INSPIRE_Thesaurus_title_ISO_nr_360" etf_name="INSPIRE Thesaurus title (ISO nr. 360)" test="$all_thesaurus_Titles[normalize-space(*/text()) = 'GEMET - INSPIRE themes, version 1.0']">Thesaurus title (ISO nr. 360) ontbreekt of heeft de verkeerde waarde. Eén Thesaurus titel dient de waarde 'GEMET - INSPIRE themes, version 1.0 ' te bevatten.</sch:assert>
-			 <sch:report id="INSPIRE_Thesaurus_title_ISO_nr_360_info" etf_name="INSPIRE Thesaurus title (ISO nr. 360) info" test="$thesaurus_Title">Thesaurus title (ISO nr. 360) is: <sch:value-of select="$thesaurus_Title"/></sch:report>
-			-->
-        	<!-- Eind Thesaurus titel alleen voor INSPIRE-->
-
         	<!-- Thesaurus datum en datumtype 5.2.15 Thesaurusdatum https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum en
 			 5.2.16 Thesaurusdatum type https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type -->
 			<sch:assert id="thesaurus_datum_ISO_nr394_en_datumtype_ISO_nr_395" etf_name="thesaurus datum (ISO nr.394) en datumtype (ISO nr. 395)" test="($thesaurus_TitleString or $thesaurus_TitleURI) and ($thesaurus_CreationDate or $thesaurus_PublicationDate or $thesaurus_RevisionDate)">Een thesaurus datum (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum) en datumtype (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurusdatum-type) is verplicht als Thesaurus title (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#thesaurus) is opgegeven. Datum formaat moet YYYY-MM-DD zijn. (Thesaurus: <sch:value-of select="$thesaurus_TitleString"/><sch:value-of select="$thesaurus_TitleURI"/>) </sch:assert>
 
+		</sch:rule>
+
+		<sch:rule id="Temporele_dekking" etf_name="Temporele dekking" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
+			<!-- section 6.2 https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking -->
+			<sch:let name="timePeriodBegin" value="gml:TimePeriod/gml:beginPosition"/>
+			<sch:let name="timePosition" value="gml:TimeInstant/gml:timePosition"/>
+			<sch:assert id="Temporele_dekking_period_of_position" etf_name="Temporele dekking is een periode of individuele datum" test="$timePeriodBegin or $timePosition">De Temporele dekking is opgegeven. Er moet dan een tijdsperiode of individuele datum worden opgegeven conform https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking, maar dat is niet het geval.</sch:assert>
 		</sch:rule>
 
 		<!-- new in profile v2.0: account for gmx:Anchor -->
@@ -656,20 +656,44 @@ Deze keywords moeten uit GEMET- INSPIRE themes thesaurus komen. Gevonden keyword
 
 		<!--eind  Controlled originating vocabulary -  -->
 
+		</sch:rule>
 
-		 <!--  voor externe thesaurus
- 		-->
-		 <!--
-     		<sch:assert id="INSPIRE_thesaurus_Trefwoorden_ISO_nr_53" etf_name="INSPIRE thesaurus Trefwoorden (ISO nr. 53)" test="$gemet-nl//skos:prefLabel[normalize-space(text()) = normalize-space(current())]">Keywords [<sch:value-of select="$gemet-nl//skos:prefLabel "/>]   moeten uit GEMET- INSPIRE themes thesaurus komen. gevonden keywords: <sch:value-of select="."/></sch:assert>
-		 -->
+		<sch:rule id="Waarschuwingen_-_INSPIRE_dataservice_koppeling" etf_name="Waarschuwingen - INSPIRE dataservice koppeling" context="//gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions">
+
+			<sch:let name="nrOnLine_Protocol_Without_Description" value="count(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[not(./gmd:description)])"/>
+
+			<sch:assert id="Omschrijving_verplicht_voor_een_URL" etf_name="Omschrijving accessPoint of endPoint is verplicht voor een URL" test="$nrOnLine_Protocol_Without_Description = 0">Voor de INSPIRE dataservice koppeling is het verplicht dat alle distributie URLs een omschrijving (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#description) hebben. Voor <sch:value-of select="$nrOnLine_Protocol_Without_Description"/> URL(s) ontbreekt echter een omschrijving. Zie de URLs: <sch:value-of select="normalize-space(string-join(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL[not(../../gmd:description)], ', '))"/>.
+				</sch:assert>
+
+			<sch:let name="nr_onLine_Description_with_CharacterStrings" value="count(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:description/gco:CharacterString)"/>
+
+			<sch:assert id="Anchor_verplicht_voor_omschrijving" etf_name="Anchor verplicht voor element omschrijving accessPoint of endPoint" test="$nr_onLine_Description_with_CharacterStrings = 0">Voor de INSPIRE dataservice koppeling is het verplicht dat in het element omschrijving van een URL (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#description) in een Anchor is opgenomen. Voor <sch:value-of select="$nr_onLine_Description_with_CharacterStrings"/> URL(s) is de omschrijving in een CharacterString opgenomen. Zie de omschrijvingen: <sch:value-of select="normalize-space(string-join(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:description/gco:CharacterString, ', '))"/>.</sch:assert>
+
+			<!-- Protocol moet altijd opgegeven zijn. Iets andere test dan eerdere test op protocol en URL, daarin wordt tegen een specifieke codelijst getest. Voor de INSPIRE dataset service koppeling kan die codelijst anders worden, dus deze test controleert alleen of er een element protocol is opgegeven -->
+			<sch:let name="nrOnLine_URL_Without_Protocol" value="count(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[not(./gmd:protocol)])"/>
+			<sch:assert id="Protocol_verplicht_voor_een_URL" etf_name="Protocol verplicht voor een URL" test="$nrOnLine_URL_Without_Protocol = 0">Voor de INSPIRE dataservice koppeling is het verplicht dat alle distributie URLs een protocol (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#protocol) hebben. Voor <sch:value-of select="$nrOnLine_URL_Without_Protocol"/> URL(s) ontbreekt echter een protocol. Zie de URLs: <sch:value-of select="normalize-space(string-join(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL[not(../../gmd:protocol)], ', '))"/>.
+			</sch:assert>
+
+			<!-- protocol moet een anchor zijn, altijd verplicht.  -->
+			<sch:let name="nrOnLine_Protocol_not_Anchor" value="count(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:protocol[not(./gmx:Anchor)])"/>
+
+			<sch:assert id="Protocol_moet_altijd_een_Anchor_zijn" etf_name="Anchor verplicht voor protocol" test="$nrOnLine_Protocol_not_Anchor = 0">Voor de INSPIRE dataservice koppeling is het verplicht dat het element protocol (https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#protocol) via een Anchor is beschreven. Voor <sch:value-of select="$nrOnLine_Protocol_not_Anchor"/> element(en) is dat niet het geval. Zie de protocol elementen: <sch:value-of select="normalize-space(string-join(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:protocol[not(./gmx:Anchor)], ', '))"/>.
+				</sch:assert>
+
+
+			<!-- applicatieprofiel: moet er minimaal eentje aanwezig zijn, voor een omschrijving=accesspoint
+			NB: aanname: alleen gebruik Anchors
+			-->
+
+			<!-- Use a schematron var to do the filtering (with a contains function) in the next step . Because if the xlink:href attribute is spread over multiple lines (so cntains a line ending, which is valid), the filter won't work if the value is used directly. wWthout http:// for this value,because of schematron syntax  -->
+			<sch:let name="accessPointUri" value="inspire.ec.europa.eu/metadata-codelist/OnLineDescriptionCode/accessPoint"/>
+
+			<sch:let name="nr_onLine_ApplicationProfile" value="count(gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource[contains(gmd:description/gmx:Anchor/@xlink:href, $accessPointUri)]/gmd:applicationProfile/gmx:Anchor[normalize-space(@xlink:href) = 'http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view' or normalize-space(@xlink:href) = 'http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download'])"/>
+
+			<sch:assert id="Minimaal_applicationProfile_View_Download" etf_name="Er is minimaal een applicationProfile opgegeven voor een View en Download service" test="$nr_onLine_ApplicationProfile &gt; 1">Voor de INSPIRE dataservice koppeling is het verplicht dat tenminste voor een View en Download service het applicatie profiel is opgegeven, met een waarde uit de codelijst ServiceType (http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/). Het applicatie profiel moet opgegeven zijn via een Anchor.
+			</sch:assert>
 
 		</sch:rule>
 
-		<sch:rule id="Temporele_dekking" etf_name="Temporele dekking" context="//gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
-			<!-- section 6.2 https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking -->
-			<sch:let name="timePeriodBegin" value="gml:TimePeriod/gml:beginPosition"/>
-			<sch:let name="timePosition" value="gml:TimeInstant/gml:timePosition"/>
-			<sch:assert id="Temporele_dekking_period_of_position" etf_name="Temporele dekking is een periode of individuele datum" test="$timePeriodBegin or $timePosition">De Temporele dekking is opgegeven. Er moet dan een tijdsperiode of individuele datum worden opgegeven conform https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#Tempporele-dekking, maar dat is niet het geval.</sch:assert>
-		</sch:rule>
 	</sch:pattern>
 </sch:schema>
