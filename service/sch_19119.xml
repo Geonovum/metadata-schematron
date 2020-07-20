@@ -11,8 +11,8 @@
 
 	<sch:let name="lowercase" value="'abcdefghijklmnopqrstuvwxyz'"/>
 	<sch:let name="uppercase" value="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
-	<sch:pattern id="Validatie tegen het Nederlands metadata profiel op ISO 19119">
-		<sch:title>Validatie tegen het Nederlands metadata profiel op ISO 19119 voor services v 2.0.0</sch:title>
+	<sch:pattern id="Validatie tegen het Nederlands metadata profiel op ISO 19119 2.1.0">
+		<sch:title>Validatie tegen het Nederlands metadata profiel op ISO 19119 voor services versie 2.1.0 (2020)</sch:title>
 		<!-- INSPIRE Thesaurus en Conformiteit-->
 		<sch:let name="thesaurus1" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:descriptiveKeywords[1]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
 		<sch:let name="thesaurus2" value="normalize-space(/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:descriptiveKeywords[2]/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title[gco:CharacterString or gmx:Anchor]/*)"/>
