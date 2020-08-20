@@ -61,7 +61,7 @@
 
 		<!-- Metadata verantwoordelijke organisatie (role) NL profiel -->
 			<!-- fix for first mdResponsibele Party, https://github.com/Geonovum/metadata-schematron/issues/20 -->
-			<sch:let name="mdResponsibleParty_Role" value="normalize-space(gmd:contact/gmd:CI_ResponsibleParty/gmd:role/*[@codeListValue = 'resourceProvider' or @codeListValue = 'custodian' or @codeListValue = 'owner' or @codeListValue = 'user' or @codeListValue = 'distributor' or @codeListValue = 'owner' or @codeListValue = 'originator' or @codeListValue = 'pointOfContact' or @codeListValue = 'principalInvestigator' or @codeListValue = 'processor' or @codeListValue = 'publisher' or @codeListValue = 'author'][1])"/>
+			<sch:let name="mdResponsibleParty_Role" value="gmd:contact/gmd:CI_ResponsibleParty/gmd:role/*[@codeListValue = 'resourceProvider' or @codeListValue = 'custodian' or @codeListValue = 'owner' or @codeListValue = 'user' or @codeListValue = 'distributor' or @codeListValue = 'owner' or @codeListValue = 'originator' or @codeListValue = 'pointOfContact' or @codeListValue = 'principalInvestigator' or @codeListValue = 'processor' or @codeListValue = 'publisher' or @codeListValue = 'author'][1]"/>
 
 		<!-- Metadata verantwoordelijke organisatie (url) -->
 			<sch:let name="mdResponsibleParty_Mail" value="normalize-space(gmd:contact[1]/*/gmd:contactInfo/*/gmd:address/*/gmd:electronicMailAddress[1]/gco:CharacterString)"/>
@@ -150,6 +150,9 @@
 
  		<!-- Verantwoordelijke organisatie bron rol, https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#verantwoordelijke-organisatie-bron:-rol -->
  			<sch:let name="responsibleParty_Role" value="gmd:identificationInfo/*/gmd:pointOfContact[1]/gmd:CI_ResponsibleParty/gmd:role/*[@codeListValue = 'resourceProvider' or @codeListValue = 'custodian' or @codeListValue = 'owner' or @codeListValue = 'user' or @codeListValue = 'distributor' or @codeListValue = 'owner' or @codeListValue = 'originator' or @codeListValue = 'pointOfContact' or @codeListValue = 'principalInvestigator' or @codeListValue = 'processor' or @codeListValue = 'publisher' or @codeListValue = 'author']"/>
+
+			<sch:let name="responsibleParty_Role_custodian" value="gmd:identificationInfo/*/gmd:pointOfContact[1]/gmd:CI_ResponsibleParty/gmd:role/*[@codeListValue = 'custodian'][1]"/>
+
 
 		 <!-- Trefwoorden  voor INSPIRE -->
 			<sch:let name="keyword_INSPIRE" value="normalize-space((gmd:identificationInfo[1]/*/gmd:descriptiveKeywords/*/gmd:keyword[1][gco:CharacterString or gmx:Anchor]/*
@@ -265,7 +268,7 @@
 
 		<!-- INSPIRE in combi met SDS interop INSPIRE -->
 			<sch:assert id="Rol_organisatie_SDSISO_nr_379" etf_name="Rol organisatie SDS (ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Interop) or ($conformity_Spec_Title_SDS_Interop and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE interoperable SDS in ieder geval de rol beheerder opnemen</sch:assert>
-			<sch:assert id="Rol_organisatie_SDS_harmoISO_nr_379" etf_name="Rol organisatie SDS harmonised (ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and contains($responsibleParty_Role, 'custodian'))">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE harmonised SDS in ieder geval de rol beheerder opnemen</sch:assert>
+			<sch:assert id="Rol_organisatie_SDS_harmoISO_nr_379" etf_name="Rol organisatie SDS harmonised (ISO nr. 379)" test="not($conformity_Spec_Title_SDS_Harmo) or ($conformity_Spec_Title_SDS_Harmo and $responsibleParty_Role_custodian)">Rol organisatie (ISO nr. 379) ontbreekt of heeft een verkeerde waarde, voor INSPIRE harmonised SDS in ieder geval de rol beheerder opnemen</sch:assert>
 			<sch:report id="Rol_organisatie_SDSISO_nr_379_info" etf_name="Rol organisatie SDS (ISO nr. 379) info" test="$conformity_Spec_Title_SDS_Interop">Rol verantwoordelijke organisatie (ISO nr. 379): <sch:value-of select="$conformity_Spec_Title_SDS_Interop"/>
 			</sch:report>
 		<!-- eind INSPIRE in combi met SDS INSPIRE -->
